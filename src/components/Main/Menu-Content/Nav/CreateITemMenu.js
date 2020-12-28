@@ -13,6 +13,8 @@ function CreateITemMenu({ handle }) {
     newMenuData,
     handleCreateItem,
     handleShowPopCreate,
+    newDataAdd,
+    handleAddNewItem,
   } = useContext(MenuCx);
   return (
     <div className="Popup-Create-Item">
@@ -34,10 +36,9 @@ function CreateITemMenu({ handle }) {
                   isCreateActive ? "pop-active" : ""
                 }`}
               >
-                <span>
-                  {newMenuData.length > 0
-                    ? `Select Item(${newMenuData.length})`
-                    : "Select Item"}
+                <span>Select Item</span>
+                <span className="count">
+                  {newMenuData.length > 0 ? `(${newMenuData.length})` : ""}
                 </span>
               </button>
               <button
@@ -49,6 +50,9 @@ function CreateITemMenu({ handle }) {
                 }`}
               >
                 <span>Add Item</span>
+                <span className="count">
+                  {newMenuData.length > 0 ? `(${newMenuData.length})` : ""}
+                </span>
               </button>
             </div>
           </div>
@@ -93,7 +97,17 @@ function CreateITemMenu({ handle }) {
             </div>
           ) : (
             <div className="Popup-Create-Item__list">
-              <AddItemMenu></AddItemMenu>
+              {newDataAdd.map((data, index) => (
+                <AddItemMenu key={index} data={index}></AddItemMenu>
+              ))}
+
+              <button
+                onClick={handleAddNewItem}
+                className="btn-default btn-add-component-list"
+              >
+                <i className="fas fa-plus"></i>
+                New item
+              </button>
             </div>
           )}
         </div>

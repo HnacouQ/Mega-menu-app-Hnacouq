@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import { MenuCx } from "../../../../context/MenuContext";
 
 AddItemMenu.propTypes = {};
 
 function AddItemMenu(props) {
+  const { handleGetValueInput } = useContext(MenuCx);
   return (
     <div className="AddItemMenu-Wraper">
       <div className="AddItemMenu-Wraper__item">
@@ -12,7 +14,10 @@ function AddItemMenu(props) {
           <button className="btn-default addItem__btn">
             <span>Icon</span>
           </button>
-          <input className="addItem__input"></input>
+          <input
+            onChange={(e) => handleGetValueInput(e.target.value, props.data)}
+            className="addItem__input"
+          ></input>
         </div>
       </div>
       <div className="AddItemMenu-Wraper__item">

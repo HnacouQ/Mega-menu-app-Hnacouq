@@ -25,6 +25,20 @@ class MenuContext extends Component {
       isActiveModalFont: false,
       MenuData: DataMenu,
       newMenuData: [],
+      newDataAdd: [
+        {
+          title: "",
+          url: "",
+          level: 0,
+          color: {
+            backgroundColor: "rgba(248, 249, 249, 1)",
+            textColor: "rgba(15, 15, 15, 1)",
+            backgroundHoverColor: "rgba(255, 255, 255, 1)",
+            textHoverColor: "rgba(21, 21, 21, 1)",
+          },
+          icon: null,
+        },
+      ],
     };
 
     this.handleActiveMenu = this.handleActiveMenu.bind(this);
@@ -39,6 +53,8 @@ class MenuContext extends Component {
     this.handleCreateItem = this.handleCreateItem.bind(this);
     this.handleNewArrayEmpty = this.handleNewArrayEmpty.bind(this);
     this.handleShowPopCreate = this.handleShowPopCreate.bind(this);
+    this.handleAddNewItem = this.handleAddNewItem.bind(this);
+    this.handleGetValueInput = this.handleGetValueInput.bind(this);
   }
 
   handleActiveContent(screen) {
@@ -193,6 +209,22 @@ class MenuContext extends Component {
     });
 
     this.handleShowPopCreate();
+    this.setState({
+      newDataAdd: [
+        {
+          title: "",
+          url: "",
+          level: 0,
+          color: {
+            backgroundColor: "rgba(248, 249, 249, 1)",
+            textColor: "rgba(15, 15, 15, 1)",
+            backgroundHoverColor: "rgba(255, 255, 255, 1)",
+            textHoverColor: "rgba(21, 21, 21, 1)",
+          },
+          icon: null,
+        },
+      ],
+    });
   }
 
   //handleNewArrEmpty
@@ -201,10 +233,43 @@ class MenuContext extends Component {
       newMenuData: [],
     });
   }
+  //handleCreateAddHTMLMenu
+  handleAddNewItem() {
+    const child = {
+      title: "",
+      url: "",
+      level: 0,
+      color: {
+        backgroundColor: "rgba(248, 249, 249, 1)",
+        textColor: "rgba(15, 15, 15, 1)",
+        backgroundHoverColor: "rgba(255, 255, 255, 1)",
+        textHoverColor: "rgba(21, 21, 21, 1)",
+      },
+      icon: null,
+    };
+    const arrOld = this.state.newDataAdd;
+    arrOld.push(child);
+    this.setState({
+      newDataAdd: arrOld,
+    });
+  }
+
+  //handleGetValueInput
+  handleGetValueInput(value, index) {
+    const html = [...this.state.newDataAdd];
+    const Array = html[index];
+    Array.title = value;
+    const newHTML = html.filter((data) => data.title !== "");
+
+    this.setState({
+      newMenuData: newHTML,
+    });
+  }
 
   componentDidUpdate() {}
 
   render() {
+    console.log(this.state.MenuData);
     return (
       <MenuCx.Provider
         value={{
@@ -218,6 +283,8 @@ class MenuContext extends Component {
           handleCreateItem: this.handleCreateItem,
           handleNewArrayEmpty: this.handleNewArrayEmpty,
           handleShowPopCreate: this.handleShowPopCreate,
+          handleAddNewItem: this.handleAddNewItem,
+          handleGetValueInput: this.handleGetValueInput,
           currentSetting: this.state.currentSetting,
           menuActive: this.state.menuActive,
           contentActive: this.state.contentActive,
@@ -230,6 +297,7 @@ class MenuContext extends Component {
           MenuData: this.state.MenuData,
           newMenuData: this.state.newMenuData,
           isShowPopCreate: this.state.isShowPopCreate,
+          newDataAdd: this.state.newDataAdd,
         }}
       >
         {this.props.children}
