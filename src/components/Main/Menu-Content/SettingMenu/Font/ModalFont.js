@@ -35,7 +35,7 @@ function ModalFont(props) {
             <h3>Select Font</h3>
             <button className="btn-tran" onClick={handleActiveModalFont}>
               <svg
-                style={{ width: "20px", cursor: "pointer" }}
+                style={{ width: "14px", cursor: "pointer" }}
                 aria-hidden="true"
                 focusable="false"
                 data-prefix="fas"

@@ -5,7 +5,7 @@ import { MenuCx } from "../../context/MenuContext";
 HeaderMN.propTypes = {};
 
 function HeaderMN(props) {
-  const { handleActiveContent } = useContext(MenuCx);
+  const { handleActiveContent, contentActive } = useContext(MenuCx);
 
   return (
     <div className="top-bar">
@@ -36,13 +36,19 @@ function HeaderMN(props) {
       </div>
       <div className="top-column">
         <ul className="top-center">
-          <li onClick={() => handleActiveContent("mobile")}>
-            <a>
+          <li
+            className="header-center"
+            onClick={() => handleActiveContent("mobile")}
+          >
+            <a className={contentActive ? "header-mobile" : ""}>
               <i className="fa fa-mobile" aria-hidden="true"></i>
             </a>
           </li>
-          <li onClick={() => handleActiveContent("desktop")}>
-            <a>
+          <li
+            className="header-center"
+            onClick={() => handleActiveContent("desktop")}
+          >
+            <a className={contentActive ? "" : "header-desktop"}>
               <i className="fa fa-desktop" aria-hidden="true"></i>
             </a>
           </li>

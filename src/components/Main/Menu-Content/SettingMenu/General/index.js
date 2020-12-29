@@ -15,6 +15,7 @@ function General(props) {
     handleShowUse,
     isUse,
   } = useContext(SettingCx);
+
   return (
     <div className="setting-body-content">
       <div className="setting-item-general">

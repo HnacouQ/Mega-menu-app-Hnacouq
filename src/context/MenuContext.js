@@ -12,19 +12,21 @@ class MenuContext extends Component {
       contentActive: false,
       isCreateActive: true,
       isShowPopCreate: false,
+      isShowModalDelete: false,
       Color: {
         activeColor: false,
         currentColor: "",
       },
       BackgroundColor: {
         Main: "#E8E4EA",
-        Hover: "#090C01",
+        Hover: "#fffa65",
         Text: "#03010C",
-        textHover: "#F4EFF6",
+        textHover: "#ff3838",
       },
       isActiveModalFont: false,
       MenuData: DataMenu,
       newMenuData: [],
+      dataDelete: {},
       newDataAdd: [
         {
           title: "",
@@ -55,6 +57,47 @@ class MenuContext extends Component {
     this.handleShowPopCreate = this.handleShowPopCreate.bind(this);
     this.handleAddNewItem = this.handleAddNewItem.bind(this);
     this.handleGetValueInput = this.handleGetValueInput.bind(this);
+    this.toggleModalDelete = this.toggleModalDelete.bind(this);
+    this.showModalDelete = this.showModalDelete.bind(this);
+    this.handleDeleteItem = this.handleDeleteItem.bind(this);
+    this.handleDuplicate = this.handleDuplicate.bind(this);
+  }
+
+  toggleModalDelete() {
+    this.setState({
+      isShowModalDelete: !this.state.isShowModalDelete,
+    });
+  }
+
+  showModalDelete(data) {
+    this.setState({
+      dataDelete: data,
+    });
+    this.toggleModalDelete();
+  }
+
+  handleDeleteItem() {
+    const menu = this.state.MenuData;
+    const deleteMenu = this.state.dataDelete;
+    const newMenu = menu.filter((data) => data.title !== deleteMenu.title);
+
+    this.setState({
+      MenuData: newMenu,
+      dataDelete: {},
+      isShowModalDelete: !this.state.isShowModalDelete,
+    });
+  }
+
+  handleDuplicate(data) {
+    console.log(data);
+    const menu = this.state.MenuData;
+    menu.push(data);
+
+    console.log(menu);
+
+    this.setState({
+      MenuData: menu,
+    });
   }
 
   handleActiveContent(screen) {
@@ -269,7 +312,6 @@ class MenuContext extends Component {
   componentDidUpdate() {}
 
   render() {
-    console.log(this.state.MenuData);
     return (
       <MenuCx.Provider
         value={{
@@ -285,6 +327,10 @@ class MenuContext extends Component {
           handleShowPopCreate: this.handleShowPopCreate,
           handleAddNewItem: this.handleAddNewItem,
           handleGetValueInput: this.handleGetValueInput,
+          toggleModalDelete: this.toggleModalDelete,
+          showModalDelete: this.showModalDelete,
+          handleDeleteItem: this.handleDeleteItem,
+          handleDuplicate: this.handleDuplicate,
           currentSetting: this.state.currentSetting,
           menuActive: this.state.menuActive,
           contentActive: this.state.contentActive,
@@ -298,6 +344,7 @@ class MenuContext extends Component {
           newMenuData: this.state.newMenuData,
           isShowPopCreate: this.state.isShowPopCreate,
           newDataAdd: this.state.newDataAdd,
+          isShowModalDelete: this.state.isShowModalDelete,
         }}
       >
         {this.props.children}

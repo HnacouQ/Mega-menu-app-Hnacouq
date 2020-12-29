@@ -437,7 +437,7 @@ span.font-ckeckbox {
 }
 
 .Font-Search input {
-  width: 208px;
+  width: 281px;
   padding: 7px 35px;
   border: 1px solid #ccc;
 }
@@ -448,7 +448,7 @@ span.font-ckeckbox {
 
 .Font-Search p {
   position: absolute;
-  top: -9px;
+  top: 7px;
   left: 16px;
   color: #ccc;
 }
@@ -541,7 +541,7 @@ span.font-ckeckbox {
 .Setting-Select .Setting-Select-icon {
   position: absolute;
   width: 15px;
-  top: 1px;
+  top: 4px;
   right: 8px;
   color: #ccc;
 }
@@ -680,7 +680,7 @@ i.fa.fa-mobile {
 .Popup-Create-Item__option--select::after {
   content: "OR";
   position: absolute;
-  top: 5px;
+  top: 10px;
   right: 46%;
   background: #fff;
   border-radius: 50%;
@@ -723,8 +723,8 @@ i.fa.fa-mobile {
 
 .Popup-Create-Item__Search--icon {
   position: absolute;
-  top: 13px;
-  right: 15px;
+  top: 17px;
+  right: 27px;
   color: #ccc;
 }
 
@@ -871,4 +871,99 @@ button.btn-default.btn-add-component-list i {
 
 .pop-active > .count {
   display: inline !important;
+}
+
+.header-center {
+  position: relative;
+}
+
+.header-desktop::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  border-bottom: 4px solid #fff;
+  top: 40px;
+  left: 0px;
+}
+
+.header-mobile::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  border-bottom: 4px solid #fff;
+  top: 40px;
+  left: 0px;
+}
+
+li.nav-item.nav-item-0 {
+  position: relative;
+}
+
+.editor {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+  z-index: 999;
+}
+
+i.fas.fa-copy {
+  background-color: #00a8ff;
+  color: #fff;
+  padding: 3px;
+}
+
+i.fas.fa-pen {
+  background-color: #4cd137;
+  color: #fff;
+  padding: 3px;
+}
+
+i.far.fa-trash-alt {
+  background-color: #e84118;
+  color: #fff;
+  padding: 3px;
+}
+
+.editor i {
+  margin-left: 2px;
+}
+
+.My-nav ul li:hover > .editor {
+  display: block;
+}
+
+.modal-content {
+  top: 130px !important;
+}
+
+.top-bar a {
+  color: #fff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+}
+
+h4,
+.h4 {
+  font-size: 1rem !important;
+}
+
+ol,
+ul,
+dl {
+  margin-top: 0;
+  margin-bottom: 0 !important;
+}
+
+h3,
+.h3 {
+  font-size: 1rem !important;
 }
