@@ -24,7 +24,7 @@ function Style(props) {
     padding-right: 40px;
   }
   
-  .My-nav ul li a {
+  .My-nav > ul > li.nav-item.nav-item-0 > a {
     color: ${BackgroundColor.Text};
     text-decoration: none;
     font-size: ${fontSize}px;

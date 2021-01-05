@@ -98,7 +98,7 @@ function CreateITemMenu({ handle }) {
           ) : (
             <div className="Popup-Create-Item__list">
               {newDataAdd.map((data, index) => (
-                <AddItemMenu key={index} data={index}></AddItemMenu>
+                <AddItemMenu key={index} main={data} data={index}></AddItemMenu>
               ))}
 
               <button

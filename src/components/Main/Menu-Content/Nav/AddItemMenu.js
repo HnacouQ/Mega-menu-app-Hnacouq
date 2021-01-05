@@ -1,23 +1,43 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { MenuCx } from "../../../../context/MenuContext";
+import SelectFas from "./SelectFas";
 
 AddItemMenu.propTypes = {};
 
 function AddItemMenu(props) {
-  const { handleGetValueInput } = useContext(MenuCx);
+  const {
+    handleGetValueInput,
+    isShowFas,
+    handleShowFas,
+    isShowFaskey,
+    newMenuData,
+  } = useContext(MenuCx);
+
+  console.log(props.data);
+
   return (
     <div className="AddItemMenu-Wraper">
       <div className="AddItemMenu-Wraper__item">
         <label>Icon & Title</label>
         <div className="AddItemMenu-Wraper__item--main">
-          <button className="btn-default addItem__btn">
-            <span>Icon</span>
+          <button
+            onClick={() => handleShowFas(props.data)}
+            className="btn-default addItem__btn"
+          >
+            {props.main.icon == null ? (
+              <span>Icon</span>
+            ) : (
+              <i className={`fa fa-${newMenuData[props.data].icon}`}></i>
+            )}
           </button>
           <input
             onChange={(e) => handleGetValueInput(e.target.value, props.data)}
             className="addItem__input"
           ></input>
+          {isShowFas && isShowFaskey == props.data ? (
+            <SelectFas Arrkey={props.data} />
+          ) : null}
         </div>
       </div>
       <div className="AddItemMenu-Wraper__item">

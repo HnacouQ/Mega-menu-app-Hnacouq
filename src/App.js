@@ -7,6 +7,7 @@ import MenuContext, { MenuCx } from "./context/MenuContext";
 import SettingContext from "./context/SettingContext";
 import { useState } from "react";
 import CreateITemMenu from "./components/Main/Menu-Content/Nav/CreateITemMenu";
+import EditItemMenu from "./components/Main/Menu-Content/Nav/EditItemMenu";
 
 function App() {
   return (
@@ -20,6 +21,11 @@ function App() {
           <MenuCx.Consumer>
             {({ isShowPopCreate }) =>
               isShowPopCreate ? <CreateITemMenu></CreateITemMenu> : ""
+            }
+          </MenuCx.Consumer>
+          <MenuCx.Consumer>
+            {({ isShowPopEdit }) =>
+              isShowPopEdit ? <EditItemMenu></EditItemMenu> : ""
             }
           </MenuCx.Consumer>
         </SettingContext>

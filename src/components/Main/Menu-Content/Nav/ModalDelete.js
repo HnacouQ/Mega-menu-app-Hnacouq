@@ -11,7 +11,7 @@ function ModalDelete(props) {
   );
   return (
     <div>
-      <Modal isOpen={isShowModalDelete}>
+      <Modal isOpen={isShowModalDelete} onClick={toggleModalDelete}>
         <ModalHeader onClick={toggleModalDelete}>
           Remove this menu item and its sub-menus
         </ModalHeader>

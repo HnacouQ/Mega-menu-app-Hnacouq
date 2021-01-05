@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { DataMenu } from "../components/Main/Menu-Content/Nav/NavData";
+import _ from "lodash";
 
 export const MenuCx = React.createContext();
 
@@ -13,6 +14,9 @@ class MenuContext extends Component {
       isCreateActive: true,
       isShowPopCreate: false,
       isShowModalDelete: false,
+      isShowPopEdit: false,
+      isShowFas: false,
+      isShowFaskey: 0,
       Color: {
         activeColor: false,
         currentColor: "",
@@ -26,7 +30,7 @@ class MenuContext extends Component {
       isActiveModalFont: false,
       MenuData: DataMenu,
       newMenuData: [],
-      dataDelete: {},
+      dataDelete: 0,
       newDataAdd: [
         {
           title: "",
@@ -41,6 +45,8 @@ class MenuContext extends Component {
           icon: null,
         },
       ],
+      currentItemEdit: {},
+      currentItemIndex: 0,
     };
 
     this.handleActiveMenu = this.handleActiveMenu.bind(this);
@@ -61,37 +67,55 @@ class MenuContext extends Component {
     this.showModalDelete = this.showModalDelete.bind(this);
     this.handleDeleteItem = this.handleDeleteItem.bind(this);
     this.handleDuplicate = this.handleDuplicate.bind(this);
+    this.handleShowFas = this.handleShowFas.bind(this);
+    this.handleChangefas = this.handleChangefas.bind(this);
+    this.handleShowPopEdit = this.handleShowPopEdit.bind(this);
+    this.handleShowPopEdit2 = this.handleShowPopEdit2.bind(this);
+    this.handleEditMenu = this.handleEditMenu.bind(this);
+    this.handleChangeTitle = this.handleChangeTitle.bind(this);
+    this.handleChangeLink = this.handleChangeLink.bind(this);
   }
 
+  handleShowFas(index) {
+    this.setState({
+      isShowFas: !this.state.isShowFas,
+      isShowFaskey: index,
+    });
+  }
+
+  //HideShow modals Delete
   toggleModalDelete() {
     this.setState({
       isShowModalDelete: !this.state.isShowModalDelete,
     });
   }
+  //HideShow modals Delete
 
-  showModalDelete(data) {
+  showModalDelete(id) {
+    console.log(id);
     this.setState({
-      dataDelete: data,
+      dataDelete: id,
     });
     this.toggleModalDelete();
   }
 
   handleDeleteItem() {
-    const menu = this.state.MenuData;
+    const menu = [...this.state.MenuData];
     const deleteMenu = this.state.dataDelete;
-    const newMenu = menu.filter((data) => data.title !== deleteMenu.title);
+    menu.splice(deleteMenu, 1);
+    console.log(menu);
 
     this.setState({
-      MenuData: newMenu,
-      dataDelete: {},
+      MenuData: menu,
+      dataDelete: 0,
       isShowModalDelete: !this.state.isShowModalDelete,
     });
   }
 
-  handleDuplicate(data) {
+  handleDuplicate(data, index) {
     console.log(data);
-    const menu = this.state.MenuData;
-    menu.push(data);
+    const menu = [...this.state.MenuData];
+    menu.splice(index, 0, data);
 
     console.log(menu);
 
@@ -207,6 +231,8 @@ class MenuContext extends Component {
     this.setState({
       isShowPopCreate: !this.state.isShowPopCreate,
       newMenuData: [],
+      isShowFas: false,
+      isShowFaskey: 0,
     });
   }
   //handleCreateItemMenuCkeckbox
@@ -309,9 +335,84 @@ class MenuContext extends Component {
     });
   }
 
+  handleChangefas(fas, index) {
+    if (fas === "") {
+      const html = [...this.state.newDataAdd];
+      const Array = html[index];
+      Array.icon = null;
+      const newHTML = html.filter((data) => data.icon !== null);
+
+      this.setState({
+        newMenuData: newHTML,
+        isShowFas: false,
+      });
+    } else {
+      const html = [...this.state.newDataAdd];
+      const Array = html[index];
+      Array.icon = fas;
+      const newHTML = html.filter((data) => data.icon !== null);
+
+      this.setState({
+        newMenuData: newHTML,
+        isShowFas: false,
+        isShowFaskey: 0,
+      });
+    }
+  }
+
+  handleShowPopEdit() {
+    this.setState({
+      isShowPopEdit: !this.state.isShowPopEdit,
+      currentItemEdit: {},
+      currentItemIndex: 0,
+    });
+  }
+
+  handleShowPopEdit2(data, index) {
+    this.handleShowPopEdit();
+
+    this.setState({
+      currentItemEdit: data,
+      currentItemIndex: index,
+    });
+  }
+
+  handleEditMenu() {
+    const CloneMenu = [...this.state.MenuData];
+    const ArrIndex = this.state.currentItemIndex;
+    const newItemMenu = this.state.currentItemEdit;
+
+    console.log(newArrMenu);
+
+    // this.setState({
+    //   MenuData: newArrMenu,
+    // });
+
+    // this.handleShowPopEdit();
+  }
+
+  handleChangeTitle(value) {
+    this.setState({
+      currentItemEdit: {
+        ...this.state.currentItemEdit,
+        title: value,
+      },
+    });
+  }
+
+  handleChangeLink(value) {
+    this.setState({
+      currentItemEdit: {
+        ...this.state.currentItemEdit,
+        url: value,
+      },
+    });
+  }
+
   componentDidUpdate() {}
 
   render() {
+    console.log(this.state.currentItemEdit);
     return (
       <MenuCx.Provider
         value={{
@@ -331,6 +432,13 @@ class MenuContext extends Component {
           showModalDelete: this.showModalDelete,
           handleDeleteItem: this.handleDeleteItem,
           handleDuplicate: this.handleDuplicate,
+          handleShowFas: this.handleShowFas,
+          handleChangefas: this.handleChangefas,
+          handleShowPopEdit: this.handleShowPopEdit,
+          handleShowPopEdit2: this.handleShowPopEdit2,
+          handleEditMenu: this.handleEditMenu,
+          handleChangeTitle: this.handleChangeTitle,
+          handleChangeLink: this.handleChangeLink,
           currentSetting: this.state.currentSetting,
           menuActive: this.state.menuActive,
           contentActive: this.state.contentActive,
@@ -345,6 +453,10 @@ class MenuContext extends Component {
           isShowPopCreate: this.state.isShowPopCreate,
           newDataAdd: this.state.newDataAdd,
           isShowModalDelete: this.state.isShowModalDelete,
+          isShowFas: this.state.isShowFas,
+          isShowFaskey: this.state.isShowFaskey,
+          isShowPopEdit: this.state.isShowPopEdit,
+          currentItemEdit: this.state.currentItemEdit,
         }}
       >
         {this.props.children}
