@@ -1098,3 +1098,25 @@ body > .my-nav-mobile > li.nav-item.nav-item-0 > ul.no-submenu {
 .icon-wrap button i {
   width: 20px;
 }
+
+button.close {
+  position: absolute;
+  right: 20px;
+  top: 30px;
+}
+
+button.close:focus {
+  outline: none;
+}
+
+.Template__menu--ul {
+  display: flex;
+  padding: 0;
+  justify-content: center;
+  border-bottom: 1px solid #ccc;
+}
+
+li.Template__menu--li {
+  list-style: none;
+  padding: 5px;
+}

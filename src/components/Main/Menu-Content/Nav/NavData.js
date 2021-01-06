@@ -1,7 +1,7 @@
 export const DataMenu = [
   {
     title: "HOME",
-    url: "/",
+    url: "/home",
     level: 0,
     color: {
       backgroundColor: "rgba(248, 249, 249, 1)",
@@ -37,7 +37,7 @@ export const DataMenu = [
   },
   {
     title: "BLOG",
-    url: "/",
+    url: "/blog",
     level: 0,
     color: {
       backgroundColor: "rgba(248, 249, 249, 1)",

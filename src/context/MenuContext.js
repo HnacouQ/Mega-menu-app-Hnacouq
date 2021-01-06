@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { DataMenu } from "../components/Main/Menu-Content/Nav/NavData";
-import _ from "lodash";
+// import _ from "lodash";
 
 export const MenuCx = React.createContext();
 
@@ -382,13 +382,13 @@ class MenuContext extends Component {
     const ArrIndex = this.state.currentItemIndex;
     const newItemMenu = this.state.currentItemEdit;
 
-    console.log(newArrMenu);
+    CloneMenu[ArrIndex] = newItemMenu;
 
-    // this.setState({
-    //   MenuData: newArrMenu,
-    // });
+    this.setState({
+      MenuData: CloneMenu,
+    });
 
-    // this.handleShowPopEdit();
+    this.handleShowPopEdit();
   }
 
   handleChangeTitle(value) {

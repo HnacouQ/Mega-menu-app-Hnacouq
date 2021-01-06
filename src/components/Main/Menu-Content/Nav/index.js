@@ -6,6 +6,7 @@ import NavItem from "./navItem";
 import NavItemAcc from "./NavItemAcc";
 import ModalDelete from "./ModalDelete";
 import RecursionMenu from "./RecursionMenu";
+import TemplateModals from "./TemplateModals";
 
 Nav.propTypes = {};
 
@@ -30,6 +31,7 @@ function Nav(props) {
         {isSearch ? <NavItem /> : ""}
       </ul>
       <ModalDelete></ModalDelete>
+      <TemplateModals></TemplateModals>
     </div>
   );
 }

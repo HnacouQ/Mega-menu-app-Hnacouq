@@ -9,10 +9,15 @@ function ModalDelete(props) {
   const { isShowModalDelete, toggleModalDelete, handleDeleteItem } = useContext(
     MenuCx
   );
+  const closeBtn = (
+    <button className="close" onClick={toggleModalDelete}>
+      &times;
+    </button>
+  );
   return (
     <div>
       <Modal isOpen={isShowModalDelete} onClick={toggleModalDelete}>
-        <ModalHeader onClick={toggleModalDelete}>
+        <ModalHeader onClick={toggleModalDelete} close={closeBtn}>
           Remove this menu item and its sub-menus
         </ModalHeader>
         <ModalBody>

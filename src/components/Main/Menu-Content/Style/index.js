@@ -39,6 +39,11 @@ function Style(props) {
     width: ${fontSize}px;
   }
 
+
+  .My-nav ul li:hover > a{
+    
+    color:${BackgroundColor.textHover} !important;
+  }
   
   .My-nav ul li:hover {
     background-color: ${BackgroundColor.Hover};
@@ -58,10 +63,7 @@ function Style(props) {
     color:${BackgroundColor.textHover}
   }
 
-  .My-nav ul li:hover > button{
-    
-    color:${BackgroundColor.textHover}
-  }
+  
   
   `;
   return (
