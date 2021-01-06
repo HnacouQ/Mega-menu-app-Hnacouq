@@ -11,6 +11,7 @@ function RecursionMenu(props) {
     showModalDelete,
     handleDuplicate,
     handleShowPopEdit2,
+    handleShowTemplate,
   } = useContext(MenuCx);
 
   return (
@@ -45,7 +46,7 @@ function RecursionMenu(props) {
               </ul>
             ) : (
               <ul className="no-submenu">
-                <a className="addSubmenu">
+                <a onClick={handleShowTemplate} className="addSubmenu">
                   <span>
                     {" "}
                     <i className="fas fa-plus"></i>

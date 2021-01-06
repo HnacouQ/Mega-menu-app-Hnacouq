@@ -16,6 +16,7 @@ class MenuContext extends Component {
       isShowModalDelete: false,
       isShowPopEdit: false,
       isShowFas: false,
+      isShowTemplate: false,
       isShowFaskey: 0,
       Color: {
         activeColor: false,
@@ -74,6 +75,13 @@ class MenuContext extends Component {
     this.handleEditMenu = this.handleEditMenu.bind(this);
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeLink = this.handleChangeLink.bind(this);
+    this.handleShowTemplate = this.handleShowTemplate.bind(this);
+  }
+
+  handleShowTemplate() {
+    this.setState({
+      isShowTemplate: !this.state.isShowTemplate,
+    });
   }
 
   handleShowFas(index) {
@@ -439,6 +447,7 @@ class MenuContext extends Component {
           handleEditMenu: this.handleEditMenu,
           handleChangeTitle: this.handleChangeTitle,
           handleChangeLink: this.handleChangeLink,
+          handleShowTemplate: this.handleShowTemplate,
           currentSetting: this.state.currentSetting,
           menuActive: this.state.menuActive,
           contentActive: this.state.contentActive,
@@ -457,6 +466,7 @@ class MenuContext extends Component {
           isShowFaskey: this.state.isShowFaskey,
           isShowPopEdit: this.state.isShowPopEdit,
           currentItemEdit: this.state.currentItemEdit,
+          isShowTemplate: this.state.isShowTemplate,
         }}
       >
         {this.props.children}
