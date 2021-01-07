@@ -16,6 +16,144 @@ function TemplateModals({ datas, handleActive }) {
       &times;
     </button>
   );
+  const DropdownData = [
+    {
+      id: "vertical_dropdown",
+      img:
+        "https://menu.globosoftware.net/images/templates/vertical_dropdown.png",
+      title: "Vertical Dropdown",
+    },
+    {
+      id: "horizontal_dropdown",
+      img:
+        "https://menu.globosoftware.net/images/templates/horizontal_dropdown.png",
+      title: "Horizontal Dropdown",
+    },
+  ];
+
+  const TabsData = [
+    {
+      id: "simple_tabs_2",
+      img: "https://menu.globosoftware.net/images/templates/simple_tabs_2.png",
+      title: "Simple left tabs",
+    },
+    {
+      id: "nested_tabs_2",
+      img: "https://menu.globosoftware.net/images/templates/nested_tabs_2.png",
+      title: "Nested left 2-level tabs",
+    },
+    {
+      id: "nested_tabs_5",
+      img: "https://menu.globosoftware.net/images/templates/nested_tabs_5.png",
+      title: "Nested left 3-level tabs",
+    },
+    {
+      id: "simple_tabs_1",
+      img: "https://menu.globosoftware.net/images/templates/simple_tabs_1.png",
+      title: "Simple top tab",
+    },
+    {
+      id: "nested_tabs_1",
+      img: "https://menu.globosoftware.net/images/templates/nested_tabs_1.png",
+      title: "Nested top 2-level tabs",
+    },
+    {
+      id: "nested_tabs_4",
+      img: "https://menu.globosoftware.net/images/templates/nested_tabs_4.png",
+      title: "Nested top 3-level tabs",
+    },
+    {
+      id: "simple_tabs_3",
+      img: "https://menu.globosoftware.net/images/templates/simple_tabs_3.png",
+      title: "Simple right tabs",
+    },
+    {
+      id: "nested_tabs_3",
+      img: "https://menu.globosoftware.net/images/templates/nested_tabs_3.png",
+      title: "Nested right 2-level tabs",
+    },
+    {
+      id: "nested_tabs_6",
+      img: "https://menu.globosoftware.net/images/templates/nested_tabs_6.png",
+      title: "Nested right 3-level tabs",
+    },
+  ];
+
+  const MegaMenuData = [
+    {
+      id: "blank_megamenu",
+      img: "https://menu.globosoftware.net/images/templates/blank_megamenu.png",
+      title: "Blank",
+    },
+    {
+      id: "megamenu-1",
+      img: "https://menu.globosoftware.net/images/templates/megamenu-1.png",
+      title: "4 Link list",
+    },
+    {
+      id: "megamenu-4",
+      img: "https://menu.globosoftware.net/images/templates/megamenu-4.png",
+      title: " 3 Link lists + 1 Image",
+    },
+    {
+      id: "megamenu-5",
+      img: "https://menu.globosoftware.net/images/templates/megamenu-5.png",
+      title: "2 Link lists + 2 Images",
+    },
+    {
+      id: "megamenu-6",
+      img: "https://menu.globosoftware.net/images/templates/megamenu-6.png",
+      title: "1 Link list + 3 Images",
+    },
+    {
+      id: "megamenu-7",
+      img: "https://menu.globosoftware.net/images/templates/megamenu-7.png",
+      title: "4 Images",
+    },
+    {
+      id: "megamenu-9",
+      img: "https://menu.globosoftware.net/images/templates/megamenu-9.png",
+      title: "4 Products",
+    },
+    {
+      id: "megamenu-11",
+      img: "https://menu.globosoftware.net/images/templates/megamenu-11.png",
+      title: "4 Product lists",
+    },
+    {
+      id: "megamenu-12",
+      img: "https://menu.globosoftware.net/images/templates/megamenu-12.png",
+      title: "1 Link list + 3 Product lists",
+    },
+    {
+      id: "megamenu-13",
+      img: "https://menu.globosoftware.net/images/templates/megamenu-13.png",
+      title: "Product Carousel",
+    },
+    {
+      id: "megamenu-14",
+      img: "https://menu.globosoftware.net/images/templates/megamenu-14.png",
+      title: "Link list + Product Carousel",
+    },
+    {
+      id: "megamenu-15",
+      img: "https://menu.globosoftware.net/images/templates/megamenu-15.png",
+      title: "Image + Product Carousel",
+    },
+    {
+      id: "megamenu-16",
+      img: "https://menu.globosoftware.net/images/templates/megamenu-16.png",
+      title: "Map + Contact + Address",
+    },
+  ];
+
+  const SpecialMenuData = [
+    {
+      id: "special-1",
+      img: "https://menu.globosoftware.net/images/templates/special-1.png",
+      title: "Aliexpress",
+    },
+  ];
 
   return (
     <div>
@@ -47,13 +185,13 @@ function TemplateModals({ datas, handleActive }) {
             {datas.map((data, index) => (
               <div key={index}>
                 {data.name === "Dropdown" && data.active == true ? (
-                  <Dropdown />
+                  <Dropdown data={DropdownData} />
                 ) : data.name === "Special menu" && data.active == true ? (
-                  <SpecialMenu />
+                  <SpecialMenu data={SpecialMenuData} />
                 ) : data.name === "Tabs" && data.active == true ? (
-                  <Tabs />
+                  <Tabs data={TabsData} />
                 ) : data.name === "Mega menu" && data.active == true ? (
-                  <MegaMenu />
+                  <MegaMenu data={MegaMenuData} />
                 ) : null}
               </div>
             ))}

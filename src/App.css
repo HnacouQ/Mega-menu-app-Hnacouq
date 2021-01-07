@@ -1114,6 +1114,7 @@ button.close:focus {
   padding: 0;
   justify-content: center;
   border: 1px solid #ccc;
+  border-radius: 4px;
 }
 
 li.Template__menu--li {
@@ -1129,4 +1130,70 @@ li.Template__menu--li {
   bottom: 0;
   left: 0;
   width: 100%;
+}
+
+.vertical__dropdown img {
+  width: 100%;
+}
+
+.modal-body {
+  overflow: auto;
+  max-height: 300px;
+}
+
+.TemplateList {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.TemplateList > div {
+  padding: 7px;
+  cursor: pointer;
+  flex: 0 0 50%;
+}
+
+.template-inner {
+  position: relative;
+  border: 2px solid #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: 2.69rem;
+  height: 100%;
+}
+
+.template-inner:hover {
+  border: 2px solid red;
+}
+
+.Template__menu--body {
+  background-color: #eee;
+}
+
+.template-inner span {
+  display: block;
+  text-align: center;
+  font-weight: 500;
+  text-align: center;
+  display: grid;
+  padding: 10px 10px 10px;
+  font-weight: bold;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid rgba(63, 63, 68, 0.15);
+}
+
+.TemplateList #special-1 {
+  flex: 1;
+}
+
+.modal-body {
+  background-color: #eee;
+}
+
+.Template__menu {
+  background-color: #fff;
 }
