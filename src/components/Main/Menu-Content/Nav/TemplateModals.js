@@ -22,12 +22,117 @@ function TemplateModals({ datas, handleActive }) {
       img:
         "https://menu.globosoftware.net/images/templates/vertical_dropdown.png",
       title: "Vertical Dropdown",
+      submenu: {
+        type: "dropdown",
+        orientation: "vertical",
+        alignment: "left",
+        justifyContent: "left",
+        items: [
+          {
+            title: "Dropdown item 1",
+            level: 1,
+            submenu: {
+              type: "dropdown",
+              orientation: "vertical",
+              alignment: "left",
+              justifyContent: "left",
+              items: [],
+            },
+          },
+          {
+            title: "Dropdown item 2",
+            submenu: {
+              type: "dropdown",
+              orientation: "vertical",
+              alignment: "left",
+              items: [
+                {
+                  title: "Submenu item 1",
+                  level: 2,
+                  submenu: {
+                    type: "dropdown",
+                    orientation: "vertical",
+                    alignment: "left",
+                    items: [],
+                  },
+                },
+                {
+                  title: "Submenu item 2",
+                  level: 2,
+                  submenu: {
+                    type: "dropdown",
+                    orientation: "vertical",
+                    alignment: "left",
+                    items: [],
+                  },
+                },
+                {
+                  title: "Submenu item 3",
+                  level: 2,
+                  submenu: {
+                    type: "dropdown",
+                    orientation: "vertical",
+                    alignment: "left",
+                    items: [],
+                  },
+                },
+              ],
+            },
+            level: 1,
+          },
+          {
+            title: "Dropdown item 3",
+            level: 1,
+            submenu: {
+              type: "dropdown",
+              orientation: "vertical",
+              alignment: "left",
+              justifyContent: "left",
+              items: [],
+            },
+          },
+        ],
+      },
     },
     {
       id: "horizontal_dropdown",
       img:
         "https://menu.globosoftware.net/images/templates/horizontal_dropdown.png",
       title: "Horizontal Dropdown",
+      submenu: {
+        type: "dropdown",
+        orientation: "horizontal",
+        justifyContent: "center",
+        alignment: "full",
+        items: [
+          {
+            title: "Dropdown item 1",
+          },
+          {
+            title: "Dropdown item 2",
+            submenu: {
+              type: "dropdown",
+              orientation: "horizontal",
+              justifyContent: "center",
+              alignment: "full",
+              items: [
+                {
+                  title: "Submenu item 1",
+                },
+                {
+                  title: "Submenu item 2",
+                },
+                {
+                  title: "Submenu item 3",
+                },
+              ],
+            },
+          },
+          {
+            title: "Dropdown item 3",
+          },
+        ],
+      },
     },
   ];
 
@@ -156,7 +261,7 @@ function TemplateModals({ datas, handleActive }) {
   ];
 
   return (
-    <div>
+    <>
       <Modal isOpen={isShowTemplate}>
         <ModalHeader close={closeBtn}>Select Template</ModalHeader>
         <ModalBody>
@@ -198,7 +303,7 @@ function TemplateModals({ datas, handleActive }) {
           </div>
         </ModalBody>
       </Modal>
-    </div>
+    </>
   );
 }
 

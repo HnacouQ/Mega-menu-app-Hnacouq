@@ -1,51 +1,138 @@
 export const DataMenu = [
   {
-    title: "HOME",
-    url: "/home",
-    level: 0,
-    color: {
-      backgroundColor: "rgba(248, 249, 249, 1)",
-      textColor: "rgba(15, 15, 15, 1)",
-      backgroundHoverColor: "rgba(255, 255, 255, 1)",
-      textHoverColor: "rgba(21, 21, 21, 1)",
-    },
-    icon: null,
-  },
-  {
-    title: "ABOUT",
+    title: "Home",
     url: "/",
     level: 0,
-    color: {
-      backgroundColor: "rgba(248, 249, 249, 1)",
-      textColor: "rgba(15, 15, 15, 1)",
-      backgroundHoverColor: "rgba(255, 255, 255, 1)",
-      textHoverColor: "rgba(21, 21, 21, 1)",
+    submenu: {
+      type: "mega",
+      alignment: "full",
+      items: [
+        {
+          type: "links",
+          width: 3,
+          submenu: {
+            items: [
+              {
+                title: "Heading",
+                is_heading: true,
+              },
+              {
+                title: "Menu item 1",
+              },
+              {
+                title: "Menu item 2",
+              },
+            ],
+          },
+        },
+        {
+          type: "links",
+          width: 3,
+          submenu: {
+            items: [
+              {
+                title: "Heading",
+                is_heading: true,
+              },
+              {
+                title: "Menu item 1",
+              },
+              {
+                title: "Menu item 2",
+              },
+            ],
+          },
+        },
+        {
+          type: "links",
+          width: 3,
+          submenu: {
+            items: [
+              {
+                title: "Heading",
+                is_heading: true,
+              },
+              {
+                title: "Menu item 1",
+              },
+              {
+                title: "Menu item 2",
+              },
+            ],
+          },
+        },
+        {
+          type: "links",
+          width: 3,
+          submenu: {
+            items: [
+              {
+                title: "Heading",
+                is_heading: true,
+              },
+              {
+                title: "Menu item 1",
+              },
+              {
+                title: "Menu item 2",
+              },
+            ],
+          },
+        },
+      ],
     },
-    icon: null,
   },
   {
-    title: "CONTACT",
-    url: "/",
+    title: "All Products",
+    url: "/collections/all",
     level: 0,
-    color: {
-      backgroundColor: "rgba(248, 249, 249, 1)",
-      textColor: "rgba(15, 15, 15, 1)",
-      backgroundHoverColor: "rgba(255, 255, 255, 1)",
-      textHoverColor: "rgba(21, 21, 21, 1)",
-    },
-    icon: null,
   },
   {
-    title: "BLOG",
-    url: "/blog",
+    title: "Frontpage",
+    url: "/pages/frontpage",
     level: 0,
-    color: {
-      backgroundColor: "rgba(248, 249, 249, 1)",
-      textColor: "rgba(15, 15, 15, 1)",
-      backgroundHoverColor: "rgba(255, 255, 255, 1)",
-      textHoverColor: "rgba(21, 21, 21, 1)",
+    submenu: {
+      type: "dropdown",
+      orientation: "horizontal",
+      justifyContent: "center",
+      alignment: "full",
+      items: [
+        {
+          title: "Dropdown item 1",
+        },
+        {
+          title: "Dropdown item 2",
+          submenu: {
+            type: "dropdown",
+            orientation: "horizontal",
+            justifyContent: "center",
+            alignment: "full",
+            items: [
+              {
+                title: "Submenu item 1",
+              },
+              {
+                title: "Submenu item 2",
+              },
+              {
+                title: "Submenu item 3",
+              },
+            ],
+          },
+        },
+        {
+          title: "Dropdown item 3",
+        },
+      ],
     },
+  },
+  {
+    title: "Test",
+    url: "test/",
     icon: null,
+    image: null,
+    description: null,
+    level: 0,
     submenu: {
       type: "dropdown",
       orientation: "vertical",
@@ -53,74 +140,45 @@ export const DataMenu = [
       justifyContent: "left",
       items: [
         {
-          title: "Dropdown item 1",
+          title: "Test1",
           level: 1,
           submenu: {
             type: "dropdown",
             orientation: "vertical",
             alignment: "left",
             justifyContent: "left",
-            items: [
-              {
-                title: "HnacouQ",
-                url: null,
-                icon: null,
-                image: null,
-                description: null,
-                level: 2,
-                submenu: {
-                  typentation: "vertical",
-                  alig: "dropdown",
-                  orienment: "left",
-                  justifyContent: "left",
-                  items: [],
-                },
-              },
-              {
-                title: "Search",
-                url: "/search",
-                level: 2,
-                submenu: {
-                  type: "dropdown",
-                  orientation: "vertical",
-                  alignment: "left",
-                  justifyContent: "left",
-                  items: [],
-                },
-              },
-              {
-                title: "Frontpage",
-                url: "/collections/frontpage",
-                level: 2,
-                submenu: {
-                  type: "dropdown",
-                  orientation: "vertical",
-                  alignment: "left",
-                  justifyContent: "left",
-                  items: [],
-                },
-              },
-            ],
+            items: [],
           },
-          url: "/",
-          targetBlank: true,
         },
         {
-          title: "Dropdown item 2",
+          title: "Test2",
           submenu: {
             type: "dropdown",
             orientation: "vertical",
             alignment: "left",
             items: [
               {
-                title: "Submenu item 1",
+                title: "test22",
                 level: 2,
                 submenu: {
                   type: "dropdown",
                   orientation: "vertical",
                   alignment: "left",
-                  items: [],
+                  items: [
+                    {
+                      title: "Home",
+                      url: "/",
+                      level: 3,
+                      submenu: {
+                        type: "dropdown",
+                        orientation: "vertical",
+                        alignment: "left",
+                        items: [],
+                      },
+                    },
+                  ],
                 },
+                active: false,
               },
               {
                 title: "Submenu item 2",
@@ -145,6 +203,41 @@ export const DataMenu = [
             ],
           },
           level: 1,
+        },
+        {
+          title: "Test3",
+          level: 1,
+          submenu: {
+            type: "dropdown",
+            orientation: "vertical",
+            alignment: "left",
+            justifyContent: "left",
+            items: [],
+          },
+        },
+      ],
+    },
+  },
+  {
+    title: "New products",
+    url: "/collections/new-collection",
+    level: 0,
+    submenu: {
+      type: "dropdown",
+      orientation: "vertical",
+      alignment: "left",
+      justifyContent: "left",
+      items: [
+        {
+          title: "Dropdown item 1",
+          level: 1,
+          submenu: {
+            type: "dropdown",
+            orientation: "vertical",
+            alignment: "left",
+            justifyContent: "left",
+            items: [],
+          },
         },
         {
           title: "Dropdown item 2",

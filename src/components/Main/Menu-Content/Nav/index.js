@@ -33,7 +33,7 @@ function Nav(props) {
       <ul>
         <RecursionMenu></RecursionMenu>
         <li
-          onClick={handleShowPopCreate}
+          onClick={() => handleShowPopCreate("menu")}
           className="nav-item nav-item-0 nav-create"
         >
           <button className="nav-create-item">

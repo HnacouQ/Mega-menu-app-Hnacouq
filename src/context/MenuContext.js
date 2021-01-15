@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { DataMenu } from "../components/Main/Menu-Content/Nav/NavData";
-// import _ from "lodash";
+import _ from "lodash";
 
 export const MenuCx = React.createContext();
 
@@ -17,7 +17,11 @@ class MenuContext extends Component {
       isShowPopEdit: false,
       isShowFas: false,
       isShowTemplate: false,
+      isShowIconHasSubmenu: true,
+      CurrentSubmenuIndex: 0,
       isShowFaskey: 0,
+      TypeCreate: "",
+      pathMenu: "",
       Color: {
         activeColor: false,
         currentColor: "",
@@ -76,12 +80,52 @@ class MenuContext extends Component {
     this.handleChangeTitle = this.handleChangeTitle.bind(this);
     this.handleChangeLink = this.handleChangeLink.bind(this);
     this.handleShowTemplate = this.handleShowTemplate.bind(this);
+    this.handleShowIconHasSubMenu = this.handleShowIconHasSubMenu.bind(this);
+    this.handleCreateSubmenu = this.handleCreateSubmenu.bind(this);
+    this.handleShowPath = this.handleShowPath.bind(this);
   }
 
-  handleShowTemplate() {
+  handleShowPath(path) {
+    this.handleShowPopCreate("dropdown");
     this.setState({
+      pathMenu: path,
+    });
+    // console.log(path);
+    // console.log(_.get(this.state.MenuData, path));
+  }
+
+  handleCreateSubmenu(data) {
+    const newSubmenu = data.submenu;
+    const newIndexMenu = this.state.CurrentSubmenuIndex;
+    const newMenuData = [...this.state.MenuData];
+
+    newMenuData[newIndexMenu].submenu = newSubmenu;
+    console.log(newMenuData);
+
+    this.setState({
+      MenuData: newMenuData,
       isShowTemplate: !this.state.isShowTemplate,
     });
+  }
+
+  handleShowIconHasSubMenu() {
+    this.setState({
+      isShowIconHasSubmenu: !this.state.isShowIconHasSubmenu,
+    });
+  }
+
+  handleShowTemplate(index) {
+    if (index) {
+      this.setState({
+        isShowTemplate: !this.state.isShowTemplate,
+        CurrentSubmenuIndex: index,
+      });
+    } else {
+      this.setState({
+        isShowTemplate: !this.state.isShowTemplate,
+        CurrentSubmenuIndex: 0,
+      });
+    }
   }
 
   handleShowFas(index) {
@@ -235,12 +279,13 @@ class MenuContext extends Component {
   }
 
   //handleShowwPopCreate
-  handleShowPopCreate() {
+  handleShowPopCreate(type) {
     this.setState({
       isShowPopCreate: !this.state.isShowPopCreate,
       newMenuData: [],
       isShowFas: false,
       isShowFaskey: 0,
+      TypeCreate: type,
     });
   }
   //handleCreateItemMenuCkeckbox
@@ -276,32 +321,67 @@ class MenuContext extends Component {
 
   //handleCreateItem
   handleCreateItem() {
-    const menu = this.state.MenuData;
-    const newMenu = this.state.newMenuData;
+    if (this.state.TypeCreate == "menu") {
+      const menu = this.state.MenuData;
+      const newMenu = this.state.newMenuData;
 
-    const totalMenu = menu.concat(newMenu);
+      const totalMenu = menu.concat(newMenu);
 
-    this.setState({
-      MenuData: totalMenu,
-    });
+      this.setState({
+        MenuData: totalMenu,
+        TypeCreate: "",
+      });
 
-    this.handleShowPopCreate();
-    this.setState({
-      newDataAdd: [
-        {
-          title: "",
-          url: "",
-          level: 0,
-          color: {
-            backgroundColor: "rgba(248, 249, 249, 1)",
-            textColor: "rgba(15, 15, 15, 1)",
-            backgroundHoverColor: "rgba(255, 255, 255, 1)",
-            textHoverColor: "rgba(21, 21, 21, 1)",
+      this.handleShowPopCreate();
+      this.setState({
+        newDataAdd: [
+          {
+            title: "",
+            url: "",
+            level: 0,
+            color: {
+              backgroundColor: "rgba(248, 249, 249, 1)",
+              textColor: "rgba(15, 15, 15, 1)",
+              backgroundHoverColor: "rgba(255, 255, 255, 1)",
+              textHoverColor: "rgba(21, 21, 21, 1)",
+            },
+            icon: null,
           },
-          icon: null,
-        },
-      ],
-    });
+        ],
+      });
+    } else if (this.state.TypeCreate == "dropdown") {
+      console.log("123");
+      console.log(this.state.pathMenu);
+      const menu = this.state.MenuData;
+      const path = this.state.pathMenu;
+      const newSubmenu = _.get(menu, path);
+      const newMenu = this.state.newMenuData;
+      const totalMenu = newSubmenu.concat(newMenu);
+      const newSubmenuUpdate = _.set(menu, path, totalMenu);
+
+      this.setState({
+        MenuData: newSubmenuUpdate,
+        TypeCreate: "",
+      });
+
+      this.handleShowPopCreate();
+      this.setState({
+        newDataAdd: [
+          {
+            title: "",
+            url: "",
+            level: 0,
+            color: {
+              backgroundColor: "rgba(248, 249, 249, 1)",
+              textColor: "rgba(15, 15, 15, 1)",
+              backgroundHoverColor: "rgba(255, 255, 255, 1)",
+              textHoverColor: "rgba(21, 21, 21, 1)",
+            },
+            icon: null,
+          },
+        ],
+      });
+    }
   }
 
   //handleNewArrEmpty
@@ -420,7 +500,7 @@ class MenuContext extends Component {
   componentDidUpdate() {}
 
   render() {
-    console.log(this.state.currentItemEdit);
+    console.log(this.state.CurrentSubmenuIndex);
     return (
       <MenuCx.Provider
         value={{
@@ -448,6 +528,9 @@ class MenuContext extends Component {
           handleChangeTitle: this.handleChangeTitle,
           handleChangeLink: this.handleChangeLink,
           handleShowTemplate: this.handleShowTemplate,
+          handleShowIconHasSubMenu: this.handleShowIconHasSubMenu,
+          handleCreateSubmenu: this.handleCreateSubmenu,
+          handleShowPath: this.handleShowPath,
           currentSetting: this.state.currentSetting,
           menuActive: this.state.menuActive,
           contentActive: this.state.contentActive,
@@ -467,6 +550,7 @@ class MenuContext extends Component {
           isShowPopEdit: this.state.isShowPopEdit,
           currentItemEdit: this.state.currentItemEdit,
           isShowTemplate: this.state.isShowTemplate,
+          isShowIconHasSubmenu: this.state.isShowIconHasSubmenu,
         }}
       >
         {this.props.children}

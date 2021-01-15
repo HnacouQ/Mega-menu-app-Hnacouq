@@ -16,7 +16,7 @@ function Style(props) {
   } = useContext(SettingCx);
 
   const myStyle = `
-  .My-nav ul {
+  .My-nav > ul {
     display: flex;
     align-items: center;
     background-color: ${BackgroundColor.Main};
@@ -40,25 +40,30 @@ function Style(props) {
   }
 
 
-  .My-nav ul li:hover > a{
+  .My-nav > ul > li:hover > a{
     
     color:${BackgroundColor.textHover} !important;
   }
   
-  .My-nav ul li:hover {
+  .My-nav > ul > li:hover {
     background-color: ${BackgroundColor.Hover};
     color:${BackgroundColor.textHover}
   }
 
-  .My-nav ul li {
+  .My-nav > ul > li {
     list-style: none;
-    padding: 20px;
     cursor: pointer;
-    
-   
   }
 
-  .My-nav ul li:hover > a{
+  .My-nav > ul > li > a.nav-target{
+    display:block;
+    width:100%;
+    height:100%;
+    padding:20px;
+    position: relative;
+  }
+
+  .My-nav > ul > li:hover > a{
     
     color:${BackgroundColor.textHover}
   }

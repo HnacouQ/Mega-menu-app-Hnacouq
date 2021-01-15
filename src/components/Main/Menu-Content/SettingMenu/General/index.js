@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import SLOPT from "./SLOPT";
 import CB from "./CB";
 import { SettingCx } from "../../../../../context/SettingContext";
+import { MenuCx } from "../../../../../context/MenuContext";
 
 General.propTypes = {};
 
@@ -15,6 +16,8 @@ function General(props) {
     handleShowUse,
     isUse,
   } = useContext(SettingCx);
+
+  const { isShowIconHasSubmenu, handleShowIconHasSubMenu } = useContext(MenuCx);
 
   return (
     <div className="setting-body-content">
@@ -45,7 +48,11 @@ function General(props) {
         ckeck={isSearch ? "Ckecked" : ""}
         data="Show search box"
       ></CB>
-      <CB data="Show submenu indicators"></CB>
+      <CB
+        handle={handleShowIconHasSubMenu}
+        ckeck={isShowIconHasSubmenu ? "Ckecked" : ""}
+        data="Show submenu indicators"
+      ></CB>
       <CB data="Top menu separator"></CB>
       <CB data="Submenu menu border"></CB>
       <CB data="Submenu scroll"></CB>
