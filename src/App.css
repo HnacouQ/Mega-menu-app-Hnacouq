@@ -1355,3 +1355,8 @@ li.nav-item.nav-grid-item.nav-col.addblocks {
 li.nav-item.nav-grid-item.nav-col.addblocks:hover {
   background: #eee;
 }
+
+.has-submenu li.nav-item:not(.createItem) > a.nav-target {
+  display: flex;
+  justify-content: space-between;
+}

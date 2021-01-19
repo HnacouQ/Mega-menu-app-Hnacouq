@@ -14,8 +14,6 @@ function AddItemMenu(props) {
     newMenuData,
   } = useContext(MenuCx);
 
-  console.log(props.data);
-
   return (
     <div className="AddItemMenu-Wraper">
       <div className="AddItemMenu-Wraper__item">

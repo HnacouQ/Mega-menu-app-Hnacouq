@@ -34,7 +34,20 @@ class MenuContext extends Component {
       },
       isActiveModalFont: false,
       MenuData: DataMenu,
-      newMenuData: [],
+      newMenuData: [
+        {
+          title: "",
+          url: "",
+          level: 0,
+          color: {
+            backgroundColor: "rgba(248, 249, 249, 1)",
+            textColor: "rgba(15, 15, 15, 1)",
+            backgroundHoverColor: "rgba(255, 255, 255, 1)",
+            textHoverColor: "rgba(21, 21, 21, 1)",
+          },
+          icon: null,
+        },
+      ],
       dataDelete: 0,
       newDataAdd: [
         {
@@ -83,12 +96,19 @@ class MenuContext extends Component {
     this.handleShowIconHasSubMenu = this.handleShowIconHasSubMenu.bind(this);
     this.handleCreateSubmenu = this.handleCreateSubmenu.bind(this);
     this.handleShowPath = this.handleShowPath.bind(this);
+    this.handleCreateDropdown = this.handleCreateDropdown.bind(this);
   }
 
-  handleShowPath(path) {
-    this.handleShowPopCreate("dropdown");
+  handleCreateDropdown(path, type, arr) {
+    // console.log(path);
+    this.handleShowPath(path, type, arr);
+  }
+
+  handleShowPath(path, type, arr) {
+    this.handleShowPopCreate(type);
     this.setState({
       pathMenu: path,
+      newDataAdd: arr,
     });
     // console.log(path);
     // console.log(_.get(this.state.MenuData, path));
@@ -287,35 +307,99 @@ class MenuContext extends Component {
       isShowFaskey: 0,
       TypeCreate: type,
     });
+
+    // if(this.state.TypeCreate == "menu"){
+    //   this.setState({
+    //     newDataAdd:
+    //   })
+    // }
   }
   //handleCreateItemMenuCkeckbox
   handleCreateItemMenuCkeckbox(id, value, href) {
-    const listchild = {
-      title: value,
-      url: href,
-      level: 0,
-      color: {
-        backgroundColor: "rgba(248, 249, 249, 1)",
-        textColor: "rgba(15, 15, 15, 1)",
-        backgroundHoverColor: "rgba(255, 255, 255, 1)",
-        textHoverColor: "rgba(21, 21, 21, 1)",
-      },
-      icon: null,
-    };
-    const arr = this.state.newMenuData;
-    if (arr.some((arr) => arr.title === listchild.title)) {
-      const newAr = arr.filter((arrr) => {
-        return arrr.title !== listchild.title;
-      });
-      this.setState({
-        newMenuData: newAr,
-      });
-    } else {
-      arr.push(listchild);
+    if (this.state.TypeCreate == "menu") {
+      const listchild = {
+        title: value,
+        url: href,
+        level: 0,
+        color: {
+          backgroundColor: "rgba(248, 249, 249, 1)",
+          textColor: "rgba(15, 15, 15, 1)",
+          backgroundHoverColor: "rgba(255, 255, 255, 1)",
+          textHoverColor: "rgba(21, 21, 21, 1)",
+        },
+        icon: null,
+      };
 
-      this.setState({
-        newMenuData: arr,
-      });
+      const arr = this.state.newMenuData;
+      if (arr.some((arr) => arr.title === listchild.title)) {
+        const newAr = arr.filter((arrr) => {
+          return arrr.title !== listchild.title;
+        });
+        this.setState({
+          newMenuData: newAr,
+        });
+      } else {
+        arr.push(listchild);
+
+        this.setState({
+          newMenuData: arr,
+        });
+      }
+    } else if (this.state.TypeCreate == "dropdown_vertical") {
+      const listchild = {
+        title: value,
+        level: 1,
+        submenu: {
+          type: "dropdown",
+          orientation: "vertical",
+          alignment: "left",
+          justifyContent: "left",
+          items: [],
+        },
+      };
+
+      const arr = this.state.newMenuData;
+      if (arr.some((arr) => arr.title === listchild.title)) {
+        const newAr = arr.filter((arrr) => {
+          return arrr.title !== listchild.title;
+        });
+        this.setState({
+          newMenuData: newAr,
+        });
+      } else {
+        arr.push(listchild);
+
+        this.setState({
+          newMenuData: arr,
+        });
+      }
+    } else if (this.state.TypeCreate == "dropdown_horizontal") {
+      const listchild = {
+        title: value,
+        submenu: {
+          type: "dropdown",
+          orientation: "horizontal",
+          justifyContent: "center",
+          alignment: "full",
+          items: [],
+        },
+      };
+
+      const arr = this.state.newMenuData;
+      if (arr.some((arr) => arr.title === listchild.title)) {
+        const newAr = arr.filter((arrr) => {
+          return arrr.title !== listchild.title;
+        });
+        this.setState({
+          newMenuData: newAr,
+        });
+      } else {
+        arr.push(listchild);
+
+        this.setState({
+          newMenuData: arr,
+        });
+      }
     }
   }
 
@@ -349,20 +433,33 @@ class MenuContext extends Component {
           },
         ],
       });
-    } else if (this.state.TypeCreate == "dropdown") {
+    } else if (
+      this.state.TypeCreate == "dropdown_vertical" ||
+      this.state.TypeCreate == "dropdown_horizontal"
+    ) {
       console.log("123");
       console.log(this.state.pathMenu);
       const menu = this.state.MenuData;
       const path = this.state.pathMenu;
       const newSubmenu = _.get(menu, path);
       const newMenu = this.state.newMenuData;
-      const totalMenu = newSubmenu.concat(newMenu);
-      const newSubmenuUpdate = _.set(menu, path, totalMenu);
 
-      this.setState({
-        MenuData: newSubmenuUpdate,
-        TypeCreate: "",
-      });
+      if (newSubmenu) {
+        const totalMenu = newSubmenu.concat(newMenu);
+        const newSubmenuUpdate = _.set(menu, path, totalMenu);
+        this.setState({
+          MenuData: newSubmenuUpdate,
+          TypeCreate: "",
+        });
+      } else {
+        newSubmenu.submenu = [];
+        const totalMenu = newSubmenu.concat(newMenu);
+        const newSubmenuUpdate = _.set(menu, path, totalMenu);
+        this.setState({
+          MenuData: newSubmenuUpdate,
+          TypeCreate: "",
+        });
+      }
 
       this.handleShowPopCreate();
       this.setState({
@@ -392,23 +489,59 @@ class MenuContext extends Component {
   }
   //handleCreateAddHTMLMenu
   handleAddNewItem() {
-    const child = {
-      title: "",
-      url: "",
-      level: 0,
-      color: {
-        backgroundColor: "rgba(248, 249, 249, 1)",
-        textColor: "rgba(15, 15, 15, 1)",
-        backgroundHoverColor: "rgba(255, 255, 255, 1)",
-        textHoverColor: "rgba(21, 21, 21, 1)",
-      },
-      icon: null,
-    };
-    const arrOld = this.state.newDataAdd;
-    arrOld.push(child);
-    this.setState({
-      newDataAdd: arrOld,
-    });
+    if (this.state.TypeCreate == "menu") {
+      const child = {
+        title: "",
+        url: "",
+        level: 0,
+        color: {
+          backgroundColor: "rgba(248, 249, 249, 1)",
+          textColor: "rgba(15, 15, 15, 1)",
+          backgroundHoverColor: "rgba(255, 255, 255, 1)",
+          textHoverColor: "rgba(21, 21, 21, 1)",
+        },
+        icon: null,
+      };
+      const arrOld = this.state.newDataAdd;
+      arrOld.push(child);
+      this.setState({
+        newDataAdd: arrOld,
+      });
+    } else if (this.state.TypeCreate == "dropdown_vertical") {
+      const child = {
+        title: "",
+        submenu: {
+          type: "dropdown",
+          orientation: "vertical",
+          alignment: "left",
+          justifyContent: "left",
+          items: [],
+        },
+        icon: null,
+      };
+      const arrOld = this.state.newDataAdd;
+      arrOld.push(child);
+      this.setState({
+        newDataAdd: arrOld,
+      });
+    } else if (this.state.TypeCreate == "dropdown_horizontal") {
+      const child = {
+        title: "",
+        submenu: {
+          type: "dropdown",
+          orientation: "horizontal",
+          justifyContent: "center",
+          alignment: "full",
+          items: [],
+        },
+        icon: null,
+      };
+      const arrOld = this.state.newDataAdd;
+      arrOld.push(child);
+      this.setState({
+        newDataAdd: arrOld,
+      });
+    }
   }
 
   //handleGetValueInput
@@ -500,7 +633,7 @@ class MenuContext extends Component {
   componentDidUpdate() {}
 
   render() {
-    console.log(this.state.CurrentSubmenuIndex);
+    console.log(this.state.newDataAdd);
     return (
       <MenuCx.Provider
         value={{
@@ -531,6 +664,7 @@ class MenuContext extends Component {
           handleShowIconHasSubMenu: this.handleShowIconHasSubMenu,
           handleCreateSubmenu: this.handleCreateSubmenu,
           handleShowPath: this.handleShowPath,
+          handleCreateDropdown: this.handleCreateDropdown,
           currentSetting: this.state.currentSetting,
           menuActive: this.state.menuActive,
           contentActive: this.state.contentActive,

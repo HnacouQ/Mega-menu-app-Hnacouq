@@ -99,6 +99,13 @@ export const DataMenu = [
       items: [
         {
           title: "Dropdown item 1",
+          submenu: {
+            type: "dropdown",
+            orientation: "horizontal",
+            justifyContent: "center",
+            alignment: "full",
+            items: [],
+          },
         },
         {
           title: "Dropdown item 2",
@@ -110,18 +117,46 @@ export const DataMenu = [
             items: [
               {
                 title: "Submenu item 1",
+                submenu: {
+                  type: "dropdown",
+                  orientation: "horizontal",
+                  justifyContent: "center",
+                  alignment: "full",
+                  items: [],
+                },
               },
               {
                 title: "Submenu item 2",
+                submenu: {
+                  type: "dropdown",
+                  orientation: "horizontal",
+                  justifyContent: "center",
+                  alignment: "full",
+                  items: [],
+                },
               },
               {
                 title: "Submenu item 3",
+                submenu: {
+                  type: "dropdown",
+                  orientation: "horizontal",
+                  justifyContent: "center",
+                  alignment: "full",
+                  items: [],
+                },
               },
             ],
           },
         },
         {
           title: "Dropdown item 3",
+          submenu: {
+            type: "dropdown",
+            orientation: "horizontal",
+            justifyContent: "center",
+            alignment: "full",
+            items: [],
+          },
         },
       ],
     },

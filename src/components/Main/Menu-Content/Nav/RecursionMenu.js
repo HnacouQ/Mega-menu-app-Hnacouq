@@ -18,7 +18,36 @@ function RecursionMenu(props) {
     handleShowPath,
   } = useContext(MenuCx);
 
-  console.log(MenuData);
+  const arrHorizontal = [
+    {
+      title: "",
+      submenu: {
+        type: "dropdown",
+        orientation: "horizontal",
+        justifyContent: "center",
+        alignment: "full",
+        items: [],
+      },
+      icon: null,
+    },
+  ];
+  const arrVertical = [
+    {
+      title: "",
+      level: 1,
+      submenu: {
+        type: "dropdown",
+        orientation: "vertical",
+        alignment: "left",
+        justifyContent: "left",
+        items: [],
+      },
+      icon: null,
+    },
+  ];
+
+  // console.log(MenuData);
+  // console.log(MenuData[3].submenu.items[2].submenu.items[0].submenu.items);
   // console.log(MenuData[3].submenu);
   // console.log(_.set(MenuData, "[3].submenu.items", 5));
   // console.log(MenuData[3].items);
@@ -74,7 +103,16 @@ function RecursionMenu(props) {
                 />
                 <li className="createItem">
                   <a
-                    onClick={() => handleShowPath(`[${index}].submenu.items`)}
+                    onClick={() =>
+                      handleShowPath(
+                        `[${index}].submenu.items`,
+                        `dropdown_${data.submenu.orientation}`,
+
+                        data.submenu.orientation == "vertical"
+                          ? arrVertical
+                          : arrHorizontal
+                      )
+                    }
                     className="nav-target"
                   >
                     <span>
