@@ -39,7 +39,11 @@ function EditItemMenu(props) {
                 <input
                   className="addItem__input"
                   onChange={(e) => handleChangeTitle(e.target.value)}
-                  value={currentItemEdit.title}
+                  value={
+                    currentItemEdit.title !== undefined
+                      ? currentItemEdit.title
+                      : ""
+                  }
                 ></input>
               </div>
             </div>
@@ -49,7 +53,7 @@ function EditItemMenu(props) {
                 <input
                   onChange={(e) => handleChangeLink(e.target.value)}
                   className="addItem__input"
-                  value={currentItemEdit.url}
+                  value={currentItemEdit.url ? currentItemEdit.url : ""}
                 ></input>
                 <button className="addItem__btn btn-default">
                   <input type="checkbox"></input>

@@ -19,8 +19,11 @@ class MenuContext extends Component {
       isShowTemplate: false,
       isShowIconHasSubmenu: true,
       CurrentSubmenuIndex: 0,
+      SubmenuItemIndex: 0,
       isShowFaskey: 0,
       TypeCreate: "",
+      typeDeleteMenu: "",
+      typeEditSubmenuItem: "",
       pathMenu: "",
       Color: {
         activeColor: false,
@@ -97,6 +100,72 @@ class MenuContext extends Component {
     this.handleCreateSubmenu = this.handleCreateSubmenu.bind(this);
     this.handleShowPath = this.handleShowPath.bind(this);
     this.handleCreateDropdown = this.handleCreateDropdown.bind(this);
+    this.handleDeleteItemSubmenu = this.handleDeleteItemSubmenu.bind(this);
+    this.ShowModalDeleteSubmenu = this.ShowModalDeleteSubmenu.bind(this);
+    this.handleShowPopEditSubmeuItem = this.handleShowPopEditSubmeuItem.bind(
+      this
+    );
+    this.handleDuplicateItemSubmenuDropdown = this.handleDuplicateItemSubmenuDropdown.bind(
+      this
+    );
+  }
+
+  handleDuplicateItemSubmenuDropdown(path, index) {
+    const MenuDt = JSON.parse(JSON.stringify(this.state.MenuData));
+    const parentSubmenu = _.get(MenuDt, path);
+    const ItemDuplicate = _.get(MenuDt, `${path}[items][${index}]`);
+
+    parentSubmenu.items.splice(index, 0, ItemDuplicate);
+
+    this.setState({
+      MenuData: MenuDt,
+    });
+    // console.log(path, index);
+  }
+
+  handleShowPopEditSubmeuItem(path, index, type) {
+    const MenuDt = JSON.parse(JSON.stringify(this.state.MenuData));
+    this.setState({
+      pathMenu: path,
+      SubmenuItemIndex: index,
+      typeEditSubmenuItem: type,
+    });
+    // console.log(path);
+    // console.log(index);
+    // console.log(type);
+    const pathItem = `${path}[items][${index}]`;
+    const currentItem = _.get(MenuDt, pathItem);
+    this.handleShowPopEdit();
+
+    this.setState({
+      currentItemEdit: currentItem,
+    });
+  }
+
+  ShowModalDeleteSubmenu(path, index, type) {
+    console.log(type);
+    this.setState({
+      pathMenu: path,
+      SubmenuItemIndex: index,
+      typeDeleteMenu: type,
+    });
+    this.toggleModalDelete();
+  }
+
+  handleDeleteItemSubmenu() {
+    const MenuDt = JSON.parse(JSON.stringify(this.state.MenuData));
+    const path = this.state.pathMenu;
+    const index = this.state.SubmenuItemIndex;
+    // const pathItem = `${path}[items][${index}]`;
+    const parentSubmenu = _.get(MenuDt, path);
+
+    parentSubmenu.items.splice(index, 1);
+    // console.log(_.get(MenuDt, pathItem));
+    // console.log(parentSubmenu);
+    this.setState({
+      MenuData: MenuDt,
+    });
+    // _.set(MenuDt,path,parentSubmenu)
   }
 
   handleCreateDropdown(path, type, arr) {
@@ -167,29 +236,31 @@ class MenuContext extends Component {
     console.log(id);
     this.setState({
       dataDelete: id,
+      typeDeleteMenu: "",
     });
     this.toggleModalDelete();
   }
 
   handleDeleteItem() {
-    const menu = [...this.state.MenuData];
-    const deleteMenu = this.state.dataDelete;
-    menu.splice(deleteMenu, 1);
-    console.log(menu);
+    if (this.state.typeDeleteMenu === "del_drop_submenu") {
+      this.handleDeleteItemSubmenu();
+    } else {
+      const menu = [...this.state.MenuData];
+      const deleteMenu = this.state.dataDelete;
+      menu.splice(deleteMenu, 1);
+      console.log(menu);
 
-    this.setState({
-      MenuData: menu,
-      dataDelete: 0,
-      isShowModalDelete: !this.state.isShowModalDelete,
-    });
+      this.setState({
+        MenuData: menu,
+        dataDelete: 0,
+        isShowModalDelete: !this.state.isShowModalDelete,
+      });
+    }
   }
 
   handleDuplicate(data, index) {
-    console.log(data);
     const menu = [...this.state.MenuData];
     menu.splice(index, 0, data);
-
-    console.log(menu);
 
     this.setState({
       MenuData: menu,
@@ -595,19 +666,36 @@ class MenuContext extends Component {
     this.setState({
       currentItemEdit: data,
       currentItemIndex: index,
+      typeEditSubmenuItem: "",
     });
   }
 
   handleEditMenu() {
-    const CloneMenu = [...this.state.MenuData];
-    const ArrIndex = this.state.currentItemIndex;
-    const newItemMenu = this.state.currentItemEdit;
+    if (this.state.typeEditSubmenuItem == "edit_drop_submenu") {
+      const MenuDt = JSON.parse(JSON.stringify(this.state.MenuData));
+      const path = this.state.pathMenu;
+      const index = this.state.SubmenuItemIndex;
+      const ItemHasChange = this.state.currentItemEdit;
+      const newMenuEdit = _.set(
+        MenuDt,
+        `${path}[items][${index}]`,
+        ItemHasChange
+      );
+      // console.log(MenuDt);
+      this.setState({
+        MenuData: MenuDt,
+      });
+    } else {
+      const CloneMenu = [...this.state.MenuData];
+      const ArrIndex = this.state.currentItemIndex;
+      const newItemMenu = this.state.currentItemEdit;
 
-    CloneMenu[ArrIndex] = newItemMenu;
+      CloneMenu[ArrIndex] = newItemMenu;
 
-    this.setState({
-      MenuData: CloneMenu,
-    });
+      this.setState({
+        MenuData: CloneMenu,
+      });
+    }
 
     this.handleShowPopEdit();
   }
@@ -622,18 +710,26 @@ class MenuContext extends Component {
   }
 
   handleChangeLink(value) {
-    this.setState({
-      currentItemEdit: {
-        ...this.state.currentItemEdit,
-        url: value,
-      },
-    });
+    const currentItem = { ...this.state.currentItemEdit };
+
+    if (currentItem.url) {
+      this.setState({
+        currentItemEdit: {
+          ...this.state.currentItemEdit,
+          url: value,
+        },
+      });
+    } else {
+      currentItem.url = value;
+      this.setState({
+        currentItemEdit: currentItem,
+      });
+    }
   }
 
   componentDidUpdate() {}
 
   render() {
-    console.log(this.state.newDataAdd);
     return (
       <MenuCx.Provider
         value={{
@@ -665,6 +761,11 @@ class MenuContext extends Component {
           handleCreateSubmenu: this.handleCreateSubmenu,
           handleShowPath: this.handleShowPath,
           handleCreateDropdown: this.handleCreateDropdown,
+          handleDeleteItemSubmenu: this.handleDeleteItemSubmenu,
+          ShowModalDeleteSubmenu: this.ShowModalDeleteSubmenu,
+          handleShowPopEditSubmeuItem: this.handleShowPopEditSubmeuItem,
+          handleDuplicateItemSubmenuDropdown: this
+            .handleDuplicateItemSubmenuDropdown,
           currentSetting: this.state.currentSetting,
           menuActive: this.state.menuActive,
           contentActive: this.state.contentActive,

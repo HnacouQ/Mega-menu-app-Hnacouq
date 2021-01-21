@@ -42,7 +42,7 @@ function AddItemMenu(props) {
         <label>Link</label>
         <div className="AddItemMenu-Wraper__item--main">
           <input className="addItem__input"></input>
-          <button className="addItem__btn btn-default">
+          <button className="addItem__btn btn-default btn-link">
             <input type="checkbox"></input>
           </button>
         </div>

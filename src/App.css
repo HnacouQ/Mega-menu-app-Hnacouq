@@ -594,16 +594,21 @@ span.font-ckeckbox {
   display: flex;
   flex-direction: column !important;
   padding-right: 0px !important;
+  padding: 0;
 }
 
 .my-nav-mobile ul li {
   width: 100%;
   margin: none;
-  margin-left: -40px;
 }
 
 i.fa.fa-mobile {
   font-size: 22px;
+}
+
+.my-nav-mobile ul li.nav-item a.nav-target {
+  display: flex;
+  justify-content: space-between;
 }
 
 .My-Nav-icon {
@@ -693,6 +698,8 @@ i.fa.fa-mobile {
 
 .Popup-Create-Item__option--select::after {
   content: "OR";
+  font-weight: bold;
+  font-size: 12px;
   position: absolute;
   top: 10px;
   right: 46%;
@@ -722,6 +729,7 @@ i.fa.fa-mobile {
   width: 97%;
   padding: 5px;
   border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .Popup-Create-Item__Search--input input:focus {
@@ -813,12 +821,20 @@ i.fa.fa-mobile {
 button.btn-default.addItem__btn {
   border: 1px solid rgb(212, 197, 197) !important;
   padding: 7px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.btn-link {
+  margin-right: 0 !important;
+  margin-left: 10px;
 }
 
 input.addItem__input {
   width: 100%;
   border: 1px solid #ccc;
   padding: 0 10px;
+  border-radius: 5px;
 }
 
 input.addItem__input:focus {
@@ -847,6 +863,7 @@ input.addItem__input:focus {
   display: flex;
   background-color: #eee;
   align-items: center;
+  border-radius: 5px;
 }
 
 .image__wraper button {
@@ -861,6 +878,7 @@ input.addItem__input:focus {
   width: 97%;
   padding: 6px;
   border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .Des__input:focus {
@@ -944,7 +962,7 @@ i.far.fa-trash-alt {
   margin-left: 2px;
 }
 
-.My-nav > ul > li > a.nav-target:hover > .editor {
+.My-nav ul li a.nav-target:hover > .editor {
   display: block;
 }
 
@@ -1233,7 +1251,6 @@ li.Template__menu--li {
 }
 
 .nav-item .has-submenu li.nav-item {
-  padding: 10px;
   list-style: none;
 }
 
@@ -1248,7 +1265,15 @@ li.Template__menu--li {
 
 li.createItem {
   list-style: none;
+}
+
+.nav-item a.nav-target {
   padding: 10px;
+  display: block;
+}
+
+ul.nav-grid li.nav-item {
+  padding: 0 10px;
 }
 
 li.createItem a {
@@ -1359,4 +1384,10 @@ li.nav-item.nav-grid-item.nav-col.addblocks:hover {
 .has-submenu li.nav-item:not(.createItem) > a.nav-target {
   display: flex;
   justify-content: space-between;
+}
+
+.nav-item .has-submenu li.nav-item a.nav-target {
+  padding: 10px;
+  display: flex;
+  width: 100%;
 }

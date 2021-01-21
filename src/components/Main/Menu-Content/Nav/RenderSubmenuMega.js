@@ -30,7 +30,7 @@ function RenderSubmenuMega({ dataSub }) {
                   </li>
                 ))}
               </ul>
-              <li className="createItem">
+              <li key={index} className="createItem">
                 <a className="nav-target">
                   <span>
                     <i className="fas fa-plus"></i>

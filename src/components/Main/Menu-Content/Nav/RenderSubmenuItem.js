@@ -38,7 +38,15 @@ function RenderSubmenuItem({ dataSub, path, stt }) {
   ];
 
   // console.log(dataSub);
-  const { handleShowPath, handleCreateDropdown, MenuData } = useContext(MenuCx);
+  const {
+    handleShowPath,
+    handleCreateDropdown,
+    MenuData,
+    handleDeleteItemSubmenu,
+    ShowModalDeleteSubmenu,
+    handleShowPopEditSubmeuItem,
+    handleDuplicateItemSubmenuDropdown,
+  } = useContext(MenuCx);
 
   const menu = [...MenuData];
 
@@ -60,6 +68,33 @@ function RenderSubmenuItem({ dataSub, path, stt }) {
                 key={index}
               >
                 <a className="nav-target">
+                  <div className="editor">
+                    <i
+                      onClick={() =>
+                        handleDuplicateItemSubmenuDropdown(path, index)
+                      }
+                      title="Duplicate Item"
+                      className="fas fa-copy"
+                    ></i>
+                    <i
+                      onClick={() =>
+                        handleShowPopEditSubmeuItem(
+                          path,
+                          index,
+                          "edit_drop_submenu"
+                        )
+                      }
+                      title="Edit Item"
+                      className="fas fa-pen"
+                    ></i>
+                    <i
+                      onClick={() =>
+                        ShowModalDeleteSubmenu(path, index, "del_drop_submenu")
+                      }
+                      title="Delete Item"
+                      className="far fa-trash-alt"
+                    ></i>
+                  </div>
                   <span className="nav-text">{data.title}</span>
                   {orientation == "vertical" && data.submenu.items.length ? (
                     <span className="nav-retractor">
