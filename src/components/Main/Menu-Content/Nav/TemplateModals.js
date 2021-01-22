@@ -194,6 +194,84 @@ function TemplateModals({ datas, handleActive }) {
       id: "megamenu-1",
       img: "https://menu.globosoftware.net/images/templates/megamenu-1.png",
       title: "4 Link list",
+      submenu: {
+        type: "mega",
+        alignment: "full",
+        items: [
+          {
+            type: "links",
+            width: 3,
+            submenu: {
+              items: [
+                {
+                  title: "Heading",
+                  is_heading: true,
+                },
+                {
+                  title: "Menu item 1",
+                },
+                {
+                  title: "Menu item 2",
+                },
+              ],
+            },
+          },
+          {
+            type: "links",
+            width: 3,
+            submenu: {
+              items: [
+                {
+                  title: "Heading",
+                  is_heading: true,
+                },
+                {
+                  title: "Menu item 1",
+                },
+                {
+                  title: "Menu item 2",
+                },
+              ],
+            },
+          },
+          {
+            type: "links",
+            width: 3,
+            submenu: {
+              items: [
+                {
+                  title: "Heading",
+                  is_heading: true,
+                },
+                {
+                  title: "Menu item 1",
+                },
+                {
+                  title: "Menu item 2",
+                },
+              ],
+            },
+          },
+          {
+            type: "links",
+            width: 3,
+            submenu: {
+              items: [
+                {
+                  title: "Heading",
+                  is_heading: true,
+                },
+                {
+                  title: "Menu item 1",
+                },
+                {
+                  title: "Menu item 2",
+                },
+              ],
+            },
+          },
+        ],
+      },
     },
     {
       id: "megamenu-4",

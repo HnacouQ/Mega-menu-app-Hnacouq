@@ -124,7 +124,10 @@ function RecursionMenu(props) {
               </ul>
             ) : data.submenu && data.submenu.type == "mega" ? (
               <div className={`has-submenu nav-${data.submenu.type}`}>
-                <RenderSubmenuMega dataSub={data.submenu} />
+                <RenderSubmenuMega
+                  path={`[${index}][submenu][items]`}
+                  dataSub={data.submenu}
+                />
               </div>
             ) : (
               <ul className="no-submenu">

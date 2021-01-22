@@ -1362,6 +1362,10 @@ li.nav-item.nav-item-0 ul.has-submenu.nav-orientation-vertical {
   padding: 0;
 }
 
+.editor {
+  background: #fff;
+}
+
 .nav-grid .nav-item.nav-heading {
   border-bottom: 1px solid #fff;
 }
@@ -1390,4 +1394,12 @@ li.nav-item.nav-grid-item.nav-col.addblocks:hover {
   padding: 10px;
   display: flex;
   width: 100%;
+}
+
+ul.nav-links:hover > .editor {
+  display: block;
+}
+
+.nav-item.nav-heading .editor {
+  top: 20px;
 }

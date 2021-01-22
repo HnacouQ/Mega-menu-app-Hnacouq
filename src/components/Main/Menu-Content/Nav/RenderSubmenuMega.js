@@ -1,10 +1,21 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
+import { MenuCx } from "../../../../context/MenuContext";
 
 RenderSubmenuMega.propTypes = {};
 
-function RenderSubmenuMega({ dataSub }) {
+function RenderSubmenuMega({ dataSub, path }) {
   // console.log(dataSub.items);
+  const {
+    handleShowPath,
+    ShowModalDeleteSubmenu,
+    ShowModalDelMegaSubmenu,
+    ShowModalDelMega,
+    handleDuplicateMegaLink,
+    handleDuplicateDeleteItemSubmenuMega,
+    ShowPopCreateMegaLinks,
+  } = useContext(MenuCx);
+  console.log(path);
 
   return (
     <>
@@ -17,6 +28,21 @@ function RenderSubmenuMega({ dataSub }) {
               className={`nav-item nav-grid-item nav-col-${data.width}`}
             >
               <ul className={`nav-${data.type}`}>
+                <div className="editor">
+                  <i
+                    onClick={() => handleDuplicateMegaLink(path, index)}
+                    title="Duplicate Item"
+                    className="fas fa-copy"
+                  ></i>
+                  <i title="Edit Item" className="fas fa-pen"></i>
+                  <i
+                    onClick={() =>
+                      ShowModalDelMega(path, index, "delete-mega-link")
+                    }
+                    title="Delete Item"
+                    className="far fa-trash-alt"
+                  ></i>
+                </div>
                 {data.submenu.items.map((data2, index2) => (
                   <li
                     key={index2}
@@ -25,13 +51,44 @@ function RenderSubmenuMega({ dataSub }) {
                     }`}
                   >
                     <a className="nav-target">
+                      <div className="editor">
+                        <i
+                          onClick={() =>
+                            handleDuplicateDeleteItemSubmenuMega(
+                              path,
+                              index,
+                              index2
+                            )
+                          }
+                          title="Duplicate Item"
+                          className="fas fa-copy"
+                        ></i>
+                        <i title="Edit Item" className="fas fa-pen"></i>
+                        <i
+                          onClick={() =>
+                            ShowModalDelMegaSubmenu(
+                              path,
+                              index,
+                              index2,
+                              "mega-link-item"
+                            )
+                          }
+                          title="Delete Item"
+                          className="far fa-trash-alt"
+                        ></i>
+                      </div>
                       <span className="nav-text">{data2.title}</span>
                     </a>
                   </li>
                 ))}
               </ul>
               <li key={index} className="createItem">
-                <a className="nav-target">
+                <a
+                  onClick={() =>
+                    ShowPopCreateMegaLinks(path, index, "mega-links")
+                  }
+                  className="nav-target"
+                >
                   <span>
                     <i className="fas fa-plus"></i>
                   </span>

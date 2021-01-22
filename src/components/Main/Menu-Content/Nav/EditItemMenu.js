@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { MenuCx } from "../../../../context/MenuContext";
-
+import Slider from "react-rangeslider";
 EditItemMenu.propTypes = {};
 
 function EditItemMenu(props) {
@@ -25,6 +25,11 @@ function EditItemMenu(props) {
             </button>
           </div>
           <div className="Popup-Create-Item__body-edit">
+            <h4>General</h4>
+            <div className="slider">
+              <Slider min={0} max={12} value={12} />
+              <div className="value"></div>
+            </div>
             <h4>General</h4>
             <div className="AddItemMenu-Wraper__item">
               <label>Icon & Title</label>
@@ -55,7 +60,7 @@ function EditItemMenu(props) {
                   className="addItem__input"
                   value={currentItemEdit.url ? currentItemEdit.url : ""}
                 ></input>
-                <button className="addItem__btn btn-default">
+                <button className="addItem__btn btn-default btn-link">
                   <input type="checkbox"></input>
                 </button>
               </div>

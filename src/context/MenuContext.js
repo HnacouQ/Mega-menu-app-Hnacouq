@@ -19,7 +19,9 @@ class MenuContext extends Component {
       isShowTemplate: false,
       isShowIconHasSubmenu: true,
       CurrentSubmenuIndex: 0,
+      SubmenuIndex: 0,
       SubmenuItemIndex: 0,
+      MegaLinkIndex: 0,
       isShowFaskey: 0,
       TypeCreate: "",
       typeDeleteMenu: "",
@@ -108,6 +110,76 @@ class MenuContext extends Component {
     this.handleDuplicateItemSubmenuDropdown = this.handleDuplicateItemSubmenuDropdown.bind(
       this
     );
+    this.ShowModalDelMegaSubmenu = this.ShowModalDelMegaSubmenu.bind(this);
+    this.ShowModalDelMega = this.ShowModalDelMega.bind(this);
+    this.handleDuplicateMegaLink = this.handleDuplicateMegaLink.bind(this);
+    this.handleDuplicateDeleteItemSubmenuMega = this.handleDuplicateDeleteItemSubmenuMega.bind(
+      this
+    );
+    this.ShowPopCreateMegaLinks = this.ShowPopCreateMegaLinks.bind(this);
+  }
+
+  ShowModalDelMega(path, index, type) {
+    this.setState({
+      pathMenu: path,
+      SubmenuItemIndex: index,
+      typeDeleteMenu: type,
+    });
+
+    this.toggleModalDelete();
+  }
+
+  handleDuplicateMegaLink(path, index) {
+    const MenuDt = JSON.parse(JSON.stringify(this.state.MenuData));
+    const parentSubmenu = _.get(MenuDt, path);
+    const ItemDuplicate = _.get(MenuDt, `${path}[${index}]`);
+    parentSubmenu.splice(index, 0, ItemDuplicate);
+
+    this.setState({
+      MenuData: MenuDt,
+    });
+  }
+
+  handleDeleteMegaLink() {
+    const MenuDt = JSON.parse(JSON.stringify(this.state.MenuData));
+    const path = this.state.pathMenu;
+    const index = this.state.MegaLinkIndex;
+    const parentSubmenu = _.get(MenuDt, path);
+    console.log(parentSubmenu);
+    parentSubmenu.splice(index, 1);
+    _.set(MenuDt, path, parentSubmenu);
+
+    this.setState({
+      MenuData: MenuDt,
+    });
+  }
+
+  handleDuplicateDeleteItemSubmenuMega(path, index, index2) {
+    const MenuDt = JSON.parse(JSON.stringify(this.state.MenuData));
+    const parentSubmenu = _.get(MenuDt, `${path}[${index}][submenu][items]`);
+    const ItemDuplicate = _.get(
+      MenuDt,
+      `${path}[${index}][submenu][items][${index2}]`
+    );
+    parentSubmenu.splice(index2, 0, ItemDuplicate);
+
+    this.setState({
+      MenuData: MenuDt,
+    });
+  }
+
+  handleDeleteItemSubmenuMega() {
+    const MenuDt = JSON.parse(JSON.stringify(this.state.MenuData));
+    const index = this.state.SubmenuIndex;
+    const index2 = this.state.SubmenuItemIndex;
+    const path = this.state.pathMenu;
+    const parentSubmenu = _.get(MenuDt, `${path}[${index}][submenu][items]`);
+
+    parentSubmenu.splice(index2, 1);
+
+    this.setState({
+      MenuData: MenuDt,
+    });
   }
 
   handleDuplicateItemSubmenuDropdown(path, index) {
@@ -127,7 +199,7 @@ class MenuContext extends Component {
     const MenuDt = JSON.parse(JSON.stringify(this.state.MenuData));
     this.setState({
       pathMenu: path,
-      SubmenuItemIndex: index,
+      MegaLinkIndex: index,
       typeEditSubmenuItem: type,
     });
     // console.log(path);
@@ -142,8 +214,19 @@ class MenuContext extends Component {
     });
   }
 
+  ShowModalDelMegaSubmenu(path, index, index2, type) {
+    console.log(path, index, index2, type);
+    this.setState({
+      SubmenuIndex: index,
+      SubmenuItemIndex: index2,
+      pathMenu: path,
+      typeDeleteMenu: type,
+    });
+    this.toggleModalDelete();
+  }
+
   ShowModalDeleteSubmenu(path, index, type) {
-    console.log(type);
+    // console.log(path, index, type);
     this.setState({
       pathMenu: path,
       SubmenuItemIndex: index,
@@ -168,6 +251,14 @@ class MenuContext extends Component {
     // _.set(MenuDt,path,parentSubmenu)
   }
 
+  ShowPopCreateMegaLinks(path, index, type) {
+    this.setState({
+      pathMenu: path,
+      MegaLinkIndex: index,
+    });
+    this.handleShowPopCreate(type);
+  }
+
   handleCreateDropdown(path, type, arr) {
     // console.log(path);
     this.handleShowPath(path, type, arr);
@@ -184,17 +275,21 @@ class MenuContext extends Component {
   }
 
   handleCreateSubmenu(data) {
-    const newSubmenu = data.submenu;
-    const newIndexMenu = this.state.CurrentSubmenuIndex;
-    const newMenuData = [...this.state.MenuData];
+    if (data.submenu) {
+      const newSubmenu = data.submenu;
+      const newIndexMenu = this.state.CurrentSubmenuIndex;
+      const newMenuData = [...this.state.MenuData];
 
-    newMenuData[newIndexMenu].submenu = newSubmenu;
-    console.log(newMenuData);
+      newMenuData[newIndexMenu].submenu = newSubmenu;
+      console.log(newMenuData);
 
-    this.setState({
-      MenuData: newMenuData,
-      isShowTemplate: !this.state.isShowTemplate,
-    });
+      this.setState({
+        MenuData: newMenuData,
+        isShowTemplate: !this.state.isShowTemplate,
+      });
+    } else {
+      alert("Template này hiện tại chưa sãn sàng!!");
+    }
   }
 
   handleShowIconHasSubMenu() {
@@ -244,6 +339,10 @@ class MenuContext extends Component {
   handleDeleteItem() {
     if (this.state.typeDeleteMenu === "del_drop_submenu") {
       this.handleDeleteItemSubmenu();
+    } else if (this.state.typeDeleteMenu === "mega-link-item") {
+      this.handleDeleteItemSubmenuMega();
+    } else if (this.state.typeDeleteMenu === "delete-mega-link") {
+      this.handleDeleteMegaLink();
     } else {
       const menu = [...this.state.MenuData];
       const deleteMenu = this.state.dataDelete;
@@ -471,6 +570,26 @@ class MenuContext extends Component {
           newMenuData: arr,
         });
       }
+    } else if (this.state.TypeCreate == "mega-links") {
+      const listchild = {
+        title: value,
+      };
+
+      const arr = this.state.newMenuData;
+      if (arr.some((arr) => arr.title === listchild.title)) {
+        const newAr = arr.filter((arrr) => {
+          return arrr.title !== listchild.title;
+        });
+        this.setState({
+          newMenuData: newAr,
+        });
+      } else {
+        arr.push(listchild);
+
+        this.setState({
+          newMenuData: arr,
+        });
+      }
     }
   }
 
@@ -508,8 +627,8 @@ class MenuContext extends Component {
       this.state.TypeCreate == "dropdown_vertical" ||
       this.state.TypeCreate == "dropdown_horizontal"
     ) {
-      console.log("123");
-      console.log(this.state.pathMenu);
+      // console.log("123");
+      // console.log(this.state.pathMenu);
       const menu = this.state.MenuData;
       const path = this.state.pathMenu;
       const newSubmenu = _.get(menu, path);
@@ -531,6 +650,38 @@ class MenuContext extends Component {
           TypeCreate: "",
         });
       }
+
+      this.handleShowPopCreate();
+      this.setState({
+        newDataAdd: [
+          {
+            title: "",
+            url: "",
+            level: 0,
+            color: {
+              backgroundColor: "rgba(248, 249, 249, 1)",
+              textColor: "rgba(15, 15, 15, 1)",
+              backgroundHoverColor: "rgba(255, 255, 255, 1)",
+              textHoverColor: "rgba(21, 21, 21, 1)",
+            },
+            icon: null,
+          },
+        ],
+      });
+    } else if (this.state.TypeCreate === "mega-links") {
+      const MenuDt = JSON.parse(JSON.stringify(this.state.MenuData));
+      const index = this.state.MegaLinkIndex;
+      const path = this.state.pathMenu;
+      const newSubmenu = _.get(MenuDt, `${path}[${index}][submenu][items]`);
+      const newMenu = this.state.newMenuData;
+      const totalMenu = newSubmenu.concat(newMenu);
+      _.set(MenuDt, `${path}[${index}][submenu][items]`, totalMenu);
+      // console.log(newMenu);
+
+      this.setState({
+        MenuData: MenuDt,
+        TypeCreate: "",
+      });
 
       this.handleShowPopCreate();
       this.setState({
@@ -605,6 +756,16 @@ class MenuContext extends Component {
           alignment: "full",
           items: [],
         },
+        icon: null,
+      };
+      const arrOld = this.state.newDataAdd;
+      arrOld.push(child);
+      this.setState({
+        newDataAdd: arrOld,
+      });
+    } else if (this.state.TypeCreate == "mega-links") {
+      const child = {
+        title: "",
         icon: null,
       };
       const arrOld = this.state.newDataAdd;
@@ -730,6 +891,7 @@ class MenuContext extends Component {
   componentDidUpdate() {}
 
   render() {
+    // console.log(this.state.TypeCreate);
     return (
       <MenuCx.Provider
         value={{
@@ -766,6 +928,12 @@ class MenuContext extends Component {
           handleShowPopEditSubmeuItem: this.handleShowPopEditSubmeuItem,
           handleDuplicateItemSubmenuDropdown: this
             .handleDuplicateItemSubmenuDropdown,
+          ShowModalDelMegaSubmenu: this.ShowModalDelMegaSubmenu,
+          ShowModalDelMega: this.ShowModalDelMega,
+          handleDuplicateMegaLink: this.handleDuplicateMegaLink,
+          handleDuplicateDeleteItemSubmenuMega: this
+            .handleDuplicateDeleteItemSubmenuMega,
+          ShowPopCreateMegaLinks: this.ShowPopCreateMegaLinks,
           currentSetting: this.state.currentSetting,
           menuActive: this.state.menuActive,
           contentActive: this.state.contentActive,

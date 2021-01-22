@@ -8,6 +8,7 @@ import SettingContext from "./context/SettingContext";
 import { useState } from "react";
 import CreateITemMenu from "./components/Main/Menu-Content/Nav/CreateITemMenu";
 import EditItemMenu from "./components/Main/Menu-Content/Nav/EditItemMenu";
+import "react-rangeslider/lib/index.css";
 
 function App() {
   return (
