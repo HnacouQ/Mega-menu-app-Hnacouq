@@ -22,6 +22,7 @@ function Style(props) {
     background-color: ${BackgroundColor.Main};
     justify-content: ${align};
     padding-right: 40px;
+    flex-wrap:wrap;
   }
   
   .My-nav > ul > li.nav-item.nav-item-0 > a {

@@ -1344,11 +1344,66 @@ li.nav-item.nav-item-0 ul.has-submenu.nav-orientation-vertical {
   margin-left: 10px;
 }
 
+.nav-col-1 {
+  flex: 0 0 8.333333%;
+  max-width: 8.333333%;
+}
+
+.nav-col-2 {
+  flex: 0 0 16.666667%;
+  max-width: 16.666667%;
+}
+
 .nav-col-3 {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 25%;
   flex: 0 0 25%;
   max-width: 25%;
+}
+
+.nav-col-4 {
+  flex: 0 0 33.33%;
+  max-width: 33.33%;
+}
+
+.nav-col-5 {
+  flex: 0 0 41.666667%;
+  max-width: 41.666667%;
+}
+
+.nav-col-6 {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.nav-col-7 {
+  flex: 0 0 58.333333%;
+  max-width: 58.333333%;
+}
+
+.nav-col-8 {
+  flex: 0 0 66.666667%;
+  max-width: 66.666667%;
+}
+
+.nav-col-9 {
+  flex: 0 0 75%;
+  max-width: 75%;
+}
+
+.nav-col-10 {
+  flex: 0 0 83.333333%;
+  max-width: 83.333333%;
+}
+
+.nav-col-11 {
+  flex: 0 0 91.666667%;
+  max-width: 91.666667%;
+}
+
+.nav-col-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
 }
 
 .nav-grid {
@@ -1402,4 +1457,89 @@ ul.nav-links:hover > .editor {
 
 .nav-item.nav-heading .editor {
   top: 20px;
+}
+
+.rangeslider {
+  background: #fff !important;
+}
+
+.rangeslider__fill {
+  height: 4px !important;
+  box-shadow: none !important;
+  background: #f95405 !important;
+}
+
+.rangeslider,
+.rangeslider .rangeslider__fill {
+  /* box-shadow: none !important; */
+  height: 4px !important;
+}
+
+.rangeslider-horizontal .rangeslider__handle {
+}
+
+.rangeslider-horizontal .rangeslider__handle {
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 30px;
+  top: 20% !important;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.rangeslider-horizontal .rangeslider__handle:after {
+  position: static !important;
+}
+
+.rangeslider__handle:focus {
+  outline: none;
+  border: none;
+}
+
+.Isheading__Wrapper {
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+}
+
+.Isheading__Wrapper input {
+  margin-right: 10px;
+}
+
+.Title-Edit__wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+}
+
+.Title-Edit__wrapper--btn {
+  color: red;
+}
+
+.rangerSlider__Wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  align-items: center;
+}
+
+.slider {
+  position: relative;
+  margin: 0 10px;
+
+  width: 100%;
+}
+
+/* .slider::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  border: 2px solid #ccc;
+} */
+
+li.My-nav-search a {
+  width: 100%;
+  height: 100%;
+  display: block;
+  padding: 18px;
 }

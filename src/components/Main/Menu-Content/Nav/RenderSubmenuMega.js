@@ -14,6 +14,7 @@ function RenderSubmenuMega({ dataSub, path }) {
     handleDuplicateMegaLink,
     handleDuplicateDeleteItemSubmenuMega,
     ShowPopCreateMegaLinks,
+    handleShowPopEditMegaITem,
   } = useContext(MenuCx);
   console.log(path);
 
@@ -34,7 +35,11 @@ function RenderSubmenuMega({ dataSub, path }) {
                     title="Duplicate Item"
                     className="fas fa-copy"
                   ></i>
-                  <i title="Edit Item" className="fas fa-pen"></i>
+                  <i
+                    onClick={() => handleShowPopEditMegaITem(path, index)}
+                    title="Edit Item"
+                    className="fas fa-pen"
+                  ></i>
                   <i
                     onClick={() =>
                       ShowModalDelMega(path, index, "delete-mega-link")
