@@ -16,6 +16,10 @@ function RecursionMenu(props) {
     handleShowTemplate,
     isShowIconHasSubmenu,
     handleShowPath,
+    handleActive,
+    currentMenuItem,
+    currentMenuItemlevel,
+    ToggleMode,
   } = useContext(MenuCx);
 
   const arrHorizontal = [
@@ -62,27 +66,37 @@ function RecursionMenu(props) {
               data.submenu ? "nav-has-submenu" : "nav-no-submenu"
             } ${
               data.submenu ? `nav-submenu-align-${data.submenu.alignment}` : ""
-            } ${data.submenu ? `nav-submenu-${data.submenu.type}` : ""}`}
+            } ${data.submenu ? `nav-submenu-${data.submenu.type}` : ""} ${
+              currentMenuItem === index && currentMenuItemlevel === data.level
+                ? "active"
+                : ""
+            }`}
             key={index}
           >
-            <a className="nav-target">
-              <div className="editor">
-                <i
-                  onClick={() => handleDuplicate(data, index)}
-                  title="Duplicate Item"
-                  className="fas fa-copy"
-                ></i>
-                <i
-                  onClick={() => handleShowPopEdit2(data, index)}
-                  title="Edit Item"
-                  className="fas fa-pen"
-                ></i>
-                <i
-                  onClick={() => showModalDelete(index)}
-                  title="Delete Item"
-                  className="far fa-trash-alt"
-                ></i>
-              </div>
+            <a
+              onClick={() => handleActive(data.level, index)}
+              className="nav-target"
+            >
+              {!ToggleMode ? (
+                <div className="editor">
+                  <i
+                    onClick={() => handleDuplicate(data, index)}
+                    title="Duplicate Item"
+                    className="fas fa-copy"
+                  ></i>
+                  <i
+                    onClick={() => handleShowPopEdit2(data, index)}
+                    title="Edit Item"
+                    className="fas fa-pen"
+                  ></i>
+                  <i
+                    onClick={() => showModalDelete(index)}
+                    title="Delete Item"
+                    className="far fa-trash-alt"
+                  ></i>
+                </div>
+              ) : null}
+
               <span className="nav-text">{data.title}</span>
               {isShowIconHasSubmenu && data.submenu ? (
                 <span className="nav-retractor">
@@ -101,26 +115,28 @@ function RecursionMenu(props) {
                   path={`[${index}].submenu`}
                   dataSub={data.submenu}
                 />
-                <li className="createItem">
-                  <a
-                    onClick={() =>
-                      handleShowPath(
-                        `[${index}].submenu.items`,
-                        `dropdown_${data.submenu.orientation}`,
+                {!ToggleMode ? (
+                  <li className="createItem">
+                    <a
+                      onClick={() =>
+                        handleShowPath(
+                          `[${index}].submenu.items`,
+                          `dropdown_${data.submenu.orientation}`,
 
-                        data.submenu.orientation == "vertical"
-                          ? arrVertical
-                          : arrHorizontal
-                      )
-                    }
-                    className="nav-target"
-                  >
-                    <span>
-                      <i className="fas fa-plus"></i>
-                    </span>
-                    <span className="text-submenu">Add item</span>
-                  </a>
-                </li>
+                          data.submenu.orientation == "vertical"
+                            ? arrVertical
+                            : arrHorizontal
+                        )
+                      }
+                      className="nav-target"
+                    >
+                      <span>
+                        <i className="fas fa-plus"></i>
+                      </span>
+                      <span className="text-submenu">Add item</span>
+                    </a>
+                  </li>
+                ) : null}
               </ul>
             ) : data.submenu && data.submenu.type == "mega" ? (
               <div className={`has-submenu nav-${data.submenu.type}`}>
@@ -130,17 +146,21 @@ function RecursionMenu(props) {
                 />
               </div>
             ) : (
-              <ul className="no-submenu">
-                <a
-                  onClick={() => handleShowTemplate(index)}
-                  className="addSubmenu"
-                >
-                  <span>
-                    <i className="fas fa-plus"></i>
-                  </span>
-                  <span className="text-submenu">Add Submenu</span>
-                </a>
-              </ul>
+              <>
+                {!ToggleMode ? (
+                  <ul className="no-submenu">
+                    <a
+                      onClick={() => handleShowTemplate(index)}
+                      className="addSubmenu"
+                    >
+                      <span>
+                        <i className="fas fa-plus"></i>
+                      </span>
+                      <span className="text-submenu">Add Submenu</span>
+                    </a>
+                  </ul>
+                ) : null}
+              </>
             )}
           </li>
         );

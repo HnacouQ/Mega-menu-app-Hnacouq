@@ -46,6 +46,10 @@ function RenderSubmenuItem({ dataSub, path, stt }) {
     ShowModalDeleteSubmenu,
     handleShowPopEditSubmeuItem,
     handleDuplicateItemSubmenuDropdown,
+    handleActive,
+    currentMenuItem,
+    currentMenuItemlevel,
+    ToggleMode,
   } = useContext(MenuCx);
 
   const menu = [...MenuData];
@@ -68,33 +72,40 @@ function RenderSubmenuItem({ dataSub, path, stt }) {
                 key={index}
               >
                 <a className="nav-target">
-                  <div className="editor">
-                    <i
-                      onClick={() =>
-                        handleDuplicateItemSubmenuDropdown(path, index)
-                      }
-                      title="Duplicate Item"
-                      className="fas fa-copy"
-                    ></i>
-                    <i
-                      onClick={() =>
-                        handleShowPopEditSubmeuItem(
-                          path,
-                          index,
-                          "edit_drop_submenu"
-                        )
-                      }
-                      title="Edit Item"
-                      className="fas fa-pen"
-                    ></i>
-                    <i
-                      onClick={() =>
-                        ShowModalDeleteSubmenu(path, index, "del_drop_submenu")
-                      }
-                      title="Delete Item"
-                      className="far fa-trash-alt"
-                    ></i>
-                  </div>
+                  {!ToggleMode ? (
+                    <div className="editor">
+                      <i
+                        onClick={() =>
+                          handleDuplicateItemSubmenuDropdown(path, index)
+                        }
+                        title="Duplicate Item"
+                        className="fas fa-copy"
+                      ></i>
+                      <i
+                        onClick={() =>
+                          handleShowPopEditSubmeuItem(
+                            path,
+                            index,
+                            "edit_drop_submenu"
+                          )
+                        }
+                        title="Edit Item"
+                        className="fas fa-pen"
+                      ></i>
+                      <i
+                        onClick={() =>
+                          ShowModalDeleteSubmenu(
+                            path,
+                            index,
+                            "del_drop_submenu"
+                          )
+                        }
+                        title="Delete Item"
+                        className="far fa-trash-alt"
+                      ></i>
+                    </div>
+                  ) : null}
+
                   <span className="nav-text">{data.title}</span>
                   {orientation == "vertical" && data.submenu.items.length ? (
                     <span className="nav-retractor">
@@ -123,48 +134,52 @@ function RenderSubmenuItem({ dataSub, path, stt }) {
                       path={`${path}.items[${index}].submenu`}
                       dataSub={data.submenu}
                     />
-                    <li className="createItem">
-                      <a
-                        onClick={() =>
-                          handleShowPath(
-                            path + `.items[${index}].submenu.items`,
-                            `dropdown_${orientation}`,
+                    {!ToggleMode ? (
+                      <li className="createItem">
+                        <a
+                          onClick={() =>
+                            handleShowPath(
+                              path + `.items[${index}].submenu.items`,
+                              `dropdown_${orientation}`,
 
-                            orientation == "vertical"
-                              ? arrVertical
-                              : arrHorizontal
-                          )
-                        }
-                        className="nav-target"
-                      >
-                        <span>
-                          <i className="fas fa-plus"></i>
-                        </span>
-                        <span className="text-submenu">Add item</span>
-                      </a>
-                    </li>
+                              orientation == "vertical"
+                                ? arrVertical
+                                : arrHorizontal
+                            )
+                          }
+                          className="nav-target"
+                        >
+                          <span>
+                            <i className="fas fa-plus"></i>
+                          </span>
+                          <span className="text-submenu">Add item</span>
+                        </a>
+                      </li>
+                    ) : null}
                   </ul>
                 ) : (
                   <ul className={`has-submenu nav-orientation-${orientation}`}>
-                    <li className="createItem">
-                      <a
-                        onClick={() =>
-                          handleCreateDropdown(
-                            path + `.items[${index}].submenu.items`,
-                            `dropdown_${orientation}`,
-                            orientation == "vertical"
-                              ? arrVertical
-                              : arrHorizontal
-                          )
-                        }
-                        className="nav-target"
-                      >
-                        <span>
-                          <i className="fas fa-plus"></i>
-                        </span>
-                        <span className="text-submenu">Add Dropdown</span>
-                      </a>
-                    </li>
+                    {!ToggleMode ? (
+                      <li className="createItem">
+                        <a
+                          onClick={() =>
+                            handleCreateDropdown(
+                              path + `.items[${index}].submenu.items`,
+                              `dropdown_${orientation}`,
+                              orientation == "vertical"
+                                ? arrVertical
+                                : arrHorizontal
+                            )
+                          }
+                          className="nav-target"
+                        >
+                          <span>
+                            <i className="fas fa-plus"></i>
+                          </span>
+                          <span className="text-submenu">Add Dropdown</span>
+                        </a>
+                      </li>
+                    ) : null}
                   </ul>
                 )}
               </li>

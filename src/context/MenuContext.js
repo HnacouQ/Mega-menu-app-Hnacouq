@@ -72,6 +72,9 @@ class MenuContext extends Component {
       currentMegaItemEdit: {},
       currentItemIndex: 0,
       currentIndexMegaITem: 0,
+      currentMenuItem: -1,
+      currentMenuItemlevel: -1,
+      ToggleMode: false,
     };
 
     this.handleActiveMenu = this.handleActiveMenu.bind(this);
@@ -126,17 +129,56 @@ class MenuContext extends Component {
     );
     this.handleChangeLinkMega = this.handleChangeLinkMega.bind(this);
     this.handleChangeDesMega = this.handleChangeDesMega.bind(this);
+    this.handleShowPopEditMegaItemSinger = this.handleShowPopEditMegaItemSinger.bind(
+      this
+    );
+    this.handleActive = this.handleActive.bind(this);
+    this.handleChangeToggleMode = this.handleChangeToggleMode.bind(this);
+  }
+
+  handleChangeToggleMode() {
+    this.setState({
+      ToggleMode: !this.state.ToggleMode,
+    });
+  }
+
+  handleActive(level, index) {
+    if (this.state.currentMenuItem === index) {
+      this.setState({
+        currentMenuItem: -1,
+      });
+    } else {
+      this.setState({
+        currentMenuItem: index,
+        currentMenuItemlevel: level,
+      });
+    }
+  }
+
+  handleShowPopEditMegaItemSinger(path, index, index2, type) {
+    const MenuDt = JSON.parse(JSON.stringify(this.state.MenuData));
+    const CurrentItem = _.get(
+      MenuDt,
+      `${path}[${index}][submenu][items][${index2}]`
+    );
+
+    this.handleShowPopEdit();
+
+    this.setState({
+      SubmenuIndex: index,
+      SubmenuItemIndex: index2,
+      pathMenu: path,
+      typeEditSubmenuItem: type,
+      currentItemEdit: CurrentItem,
+    });
   }
 
   handleChangeDesMega(value, index) {
     const currentMegaItem = JSON.parse(
       JSON.stringify(this.state.currentMegaItemEdit)
     );
-
     const CurrentList = currentMegaItem.submenu.items;
-
     CurrentList[index].description = value;
-
     this.setState({
       currentMegaItemEdit: currentMegaItem,
     });
@@ -148,7 +190,6 @@ class MenuContext extends Component {
     );
     const CurrentList = currentMegaItem.submenu.items;
     CurrentList[index].url = value;
-
     this.setState({
       currentMegaItemEdit: currentMegaItem,
     });
@@ -160,9 +201,7 @@ class MenuContext extends Component {
     );
     const CurrentList = currentMegaItem.submenu.items;
     CurrentList[index].title = value;
-
     console.log(currentMegaItem);
-
     this.setState({
       currentMegaItemEdit: currentMegaItem,
     });
@@ -172,7 +211,6 @@ class MenuContext extends Component {
     const currentMegaItem = JSON.parse(
       JSON.stringify(this.state.currentMegaItemEdit)
     );
-
     currentMegaItem.width = value;
     this.setState({
       currentMegaItemEdit: currentMegaItem,
@@ -940,10 +978,26 @@ class MenuContext extends Component {
         this.setState({
           MenuData: MenuDt,
         });
+      } else if (this.state.typeEditSubmenuItem == "mega-link-item") {
+        const MenuDt = JSON.parse(JSON.stringify(this.state.MenuData));
+        const path = this.state.pathMenu;
+        const index = this.state.SubmenuIndex;
+        const index2 = this.state.SubmenuItemIndex;
+        const ItemHasChange = this.state.currentItemEdit;
+        const newMenuEdit = _.set(
+          MenuDt,
+          `${path}[${index}][submenu][items][${index2}]`,
+          ItemHasChange
+        );
+
+        this.setState({
+          MenuData: MenuDt,
+        });
       } else {
         const CloneMenu = [...this.state.MenuData];
         const ArrIndex = this.state.currentItemIndex;
         const newItemMenu = this.state.currentItemEdit;
+        const ItemHasChange = this.state.currentItemEdit;
 
         CloneMenu[ArrIndex] = newItemMenu;
 
@@ -986,7 +1040,7 @@ class MenuContext extends Component {
   componentDidUpdate() {}
 
   render() {
-    console.log(this.state.currentItemIndex);
+    console.log(this.state.currentMenuItem);
     return (
       <MenuCx.Provider
         value={{
@@ -1034,6 +1088,10 @@ class MenuContext extends Component {
           handleChangeValueTitleMega: this.handleChangeValueTitleMega,
           handleChangeLinkMega: this.handleChangeLinkMega,
           handleChangeDesMega: this.handleChangeDesMega,
+          handleShowPopEditMegaItemSinger: this.handleShowPopEditMegaItemSinger,
+          handleActive: this.handleActive,
+          handleChangeToggleMode: this.handleChangeToggleMode,
+          handleChangToggleMode: this.handleChangToggleMode,
           currentSetting: this.state.currentSetting,
           menuActive: this.state.menuActive,
           contentActive: this.state.contentActive,
@@ -1055,6 +1113,9 @@ class MenuContext extends Component {
           isShowTemplate: this.state.isShowTemplate,
           isShowIconHasSubmenu: this.state.isShowIconHasSubmenu,
           currentMegaItemEdit: this.state.currentMegaItemEdit,
+          currentMenuItem: this.state.currentMenuItem,
+          currentMenuItemlevel: this.state.currentMenuItemlevel,
+          ToggleMode: this.state.ToggleMode,
         }}
       >
         {this.props.children}

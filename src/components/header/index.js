@@ -1,11 +1,17 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { MenuCx } from "../../context/MenuContext";
+import Switch from "react-switch";
 
 HeaderMN.propTypes = {};
 
 function HeaderMN(props) {
-  const { handleActiveContent, contentActive } = useContext(MenuCx);
+  const {
+    handleActiveContent,
+    contentActive,
+    handleChangeToggleMode,
+    ToggleMode,
+  } = useContext(MenuCx);
 
   return (
     <div className="top-bar">
@@ -57,19 +63,36 @@ function HeaderMN(props) {
       <div className="top-column">
         <ul className="right-top">
           <li>
-            <a href="true" className="preview">
-              Preview
-            </a>
+            <button
+              onClick={handleChangeToggleMode}
+              className={`btn-default preview ${ToggleMode ? "active-SW" : ""}`}
+            >
+              <div className="switch__wrapper">
+                <div
+                  onClick={handleChangeToggleMode}
+                  className="switch__wrapper--btn switch__wrapper--on"
+                >
+                  <span>Preview Mode</span>
+                </div>
+                <div
+                  onClick={handleChangeToggleMode}
+                  className="switch__wrapper--btn switch__wrapper--off"
+                >
+                  <span>Editor Mode</span>
+                </div>
+                <div class="switch__wrapper--toggle"></div>
+              </div>
+            </button>
           </li>
-          <li>
-            <a href="true" className="unpublish">
+          <li className="unpublish__wrapper">
+            <button href="true" className="unpublish btn-default">
               Unpublish
-            </a>
+            </button>
           </li>
-          <li>
-            <a href="true" className="publish">
+          <li className="publish__wrapper">
+            <button href="true" className="publish btn-default">
               Publish
-            </a>
+            </button>
           </li>
         </ul>
       </div>

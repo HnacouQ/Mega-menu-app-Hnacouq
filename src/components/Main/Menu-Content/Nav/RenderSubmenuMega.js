@@ -15,6 +15,8 @@ function RenderSubmenuMega({ dataSub, path }) {
     handleDuplicateDeleteItemSubmenuMega,
     ShowPopCreateMegaLinks,
     handleShowPopEditMegaITem,
+    handleShowPopEditMegaItemSinger,
+    ToggleMode,
   } = useContext(MenuCx);
   console.log(path);
 
@@ -29,25 +31,28 @@ function RenderSubmenuMega({ dataSub, path }) {
               className={`nav-item nav-grid-item nav-col-${data.width}`}
             >
               <ul className={`nav-${data.type}`}>
-                <div className="editor">
-                  <i
-                    onClick={() => handleDuplicateMegaLink(path, index)}
-                    title="Duplicate Item"
-                    className="fas fa-copy"
-                  ></i>
-                  <i
-                    onClick={() => handleShowPopEditMegaITem(path, index)}
-                    title="Edit Item"
-                    className="fas fa-pen"
-                  ></i>
-                  <i
-                    onClick={() =>
-                      ShowModalDelMega(path, index, "delete-mega-link")
-                    }
-                    title="Delete Item"
-                    className="far fa-trash-alt"
-                  ></i>
-                </div>
+                {!ToggleMode ? (
+                  <div className="editor">
+                    <i
+                      onClick={() => handleDuplicateMegaLink(path, index)}
+                      title="Duplicate Item"
+                      className="fas fa-copy"
+                    ></i>
+                    <i
+                      onClick={() => handleShowPopEditMegaITem(path, index)}
+                      title="Edit Item"
+                      className="fas fa-pen"
+                    ></i>
+                    <i
+                      onClick={() =>
+                        ShowModalDelMega(path, index, "delete-mega-link")
+                      }
+                      title="Delete Item"
+                      className="far fa-trash-alt"
+                    ></i>
+                  </div>
+                ) : null}
+
                 {data.submenu.items.map((data2, index2) => (
                   <li
                     key={index2}
@@ -56,58 +61,76 @@ function RenderSubmenuMega({ dataSub, path }) {
                     }`}
                   >
                     <a className="nav-target">
-                      <div className="editor">
-                        <i
-                          onClick={() =>
-                            handleDuplicateDeleteItemSubmenuMega(
-                              path,
-                              index,
-                              index2
-                            )
-                          }
-                          title="Duplicate Item"
-                          className="fas fa-copy"
-                        ></i>
-                        <i title="Edit Item" className="fas fa-pen"></i>
-                        <i
-                          onClick={() =>
-                            ShowModalDelMegaSubmenu(
-                              path,
-                              index,
-                              index2,
-                              "mega-link-item"
-                            )
-                          }
-                          title="Delete Item"
-                          className="far fa-trash-alt"
-                        ></i>
-                      </div>
+                      {!ToggleMode ? (
+                        <div className="editor">
+                          <i
+                            onClick={() =>
+                              handleDuplicateDeleteItemSubmenuMega(
+                                path,
+                                index,
+                                index2
+                              )
+                            }
+                            title="Duplicate Item"
+                            className="fas fa-copy"
+                          ></i>
+                          <i
+                            onClick={() =>
+                              handleShowPopEditMegaItemSinger(
+                                path,
+                                index,
+                                index2,
+                                "mega-link-item"
+                              )
+                            }
+                            title="Edit Item"
+                            className="fas fa-pen"
+                          ></i>
+                          <i
+                            onClick={() =>
+                              ShowModalDelMegaSubmenu(
+                                path,
+                                index,
+                                index2,
+                                "mega-link-item"
+                              )
+                            }
+                            title="Delete Item"
+                            className="far fa-trash-alt"
+                          ></i>
+                        </div>
+                      ) : null}
+
                       <span className="nav-text">{data2.title}</span>
                     </a>
                   </li>
                 ))}
               </ul>
-              <li key={index} className="createItem">
-                <a
-                  onClick={() =>
-                    ShowPopCreateMegaLinks(path, index, "mega-links")
-                  }
-                  className="nav-target"
-                >
-                  <span>
-                    <i className="fas fa-plus"></i>
-                  </span>
-                  <span className="text-submenu">Add item</span>
-                </a>
-              </li>
+              {!ToggleMode ? (
+                <li key={index} className="createItem">
+                  <a
+                    onClick={() =>
+                      ShowPopCreateMegaLinks(path, index, "mega-links")
+                    }
+                    className="nav-target"
+                  >
+                    <span>
+                      <i className="fas fa-plus"></i>
+                    </span>
+                    <span className="text-submenu">Add item</span>
+                  </a>
+                </li>
+              ) : null}
             </li>
           </>
         ))}
-        <li className="nav-item nav-grid-item nav-col addblocks">
-          <button className="btn btn-default addblock--btn">
-            <i className="fas fa-plus"></i>
-          </button>
-        </li>
+        {!ToggleMode ? (
+          <li className="nav-item nav-grid-item nav-col addblocks">
+            <button className="btn btn-default addblock--btn">
+              <i className="fas fa-plus"></i>
+            </button>
+          </li>
+        ) : null}
       </ul>
     </>
   );

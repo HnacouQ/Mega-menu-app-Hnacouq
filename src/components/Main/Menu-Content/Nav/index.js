@@ -11,7 +11,7 @@ import TemplateModals from "./TemplateModals";
 Nav.propTypes = {};
 
 function Nav(props) {
-  const { contentActive, handleShowPopCreate } = useContext(MenuCx);
+  const { contentActive, handleShowPopCreate, ToggleMode } = useContext(MenuCx);
   const { isSearch, isUse, isRegister } = useContext(SettingCx);
   const [TempData, setTempData] = useState([
     { name: "Dropdown", active: true },
@@ -32,14 +32,17 @@ function Nav(props) {
     <div className={contentActive ? "My-nav my-nav-mobile" : "My-nav"}>
       <ul>
         <RecursionMenu></RecursionMenu>
-        <li
-          onClick={() => handleShowPopCreate("menu")}
-          className="nav-item nav-item-0 nav-create"
-        >
-          <button className="nav-create-item">
-            <i className="fas fa-plus"></i>
-          </button>
-        </li>
+        {!ToggleMode ? (
+          <li
+            onClick={() => handleShowPopCreate("menu")}
+            className="nav-item nav-item-0 nav-create"
+          >
+            <button className="nav-create-item">
+              <i className="fas fa-plus"></i>
+            </button>
+          </li>
+        ) : null}
+
         {isUse ? <NavItemAcc icon="fas fa-user" title="login" /> : ""}
         {isRegister ? <NavItemAcc icon="" title="Register" /> : ""}
         {isSearch ? <NavItem /> : ""}

@@ -15,6 +15,7 @@
     "react-notifications-component": "^3.0.3",
     "react-rangeslider": "^2.2.0",
     "react-scripts": "4.0.0",
+    "react-switch": "^6.0.0",
     "react-toastify": "^6.2.0",
     "reactstrap": "^8.8.1",
     "web-vitals": "^0.2.4"
