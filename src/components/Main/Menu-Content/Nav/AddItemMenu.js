@@ -26,7 +26,9 @@ function AddItemMenu(props) {
             {props.main.icon == null ? (
               <span>Icon</span>
             ) : (
-              <i className={`fa fa-${newMenuData[props.data].icon}`}></i>
+              <span>
+                <i className={`fa fa-${newMenuData[props.data].icon}`}></i>
+              </span>
             )}
           </button>
           <input

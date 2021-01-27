@@ -133,7 +133,10 @@ function EditItemMenu(props) {
                     {currentItemEdit.icon == null ? (
                       <span>Icon</span>
                     ) : (
-                      <i className={`fa fa-${currentItemEdit.icon}`}></i>
+                      <span>
+                        {" "}
+                        <i className={`fa fa-${currentItemEdit.icon}`}></i>
+                      </span>
                     )}
                   </button>
                   <input

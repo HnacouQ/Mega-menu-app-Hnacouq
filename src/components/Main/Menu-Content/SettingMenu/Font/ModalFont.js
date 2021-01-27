@@ -98,11 +98,11 @@ function ModalFont(props) {
             <p style={{ fontFamily: `${fontCurrent}, sans-serif` }}>
               {fontCurrent}
             </p>
-            <select>
+            {/* <select>
               <option>Regular</option>
               <option>đâsd</option>
               <option>đâsd</option>
-            </select>
+            </select> */}
           </div>
           <div className="Modal-Font-footer">
             <button

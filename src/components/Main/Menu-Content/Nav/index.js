@@ -30,7 +30,7 @@ function Nav(props) {
 
   return (
     <div className={contentActive ? "My-nav my-nav-mobile" : "My-nav"}>
-      <ul>
+      <ul class="nav-menu nav-transition-shiftup">
         <RecursionMenu></RecursionMenu>
         {!ToggleMode ? (
           <li

@@ -68,7 +68,7 @@ function RecursionMenu(props) {
               data.submenu ? `nav-submenu-align-${data.submenu.alignment}` : ""
             } ${data.submenu ? `nav-submenu-${data.submenu.type}` : ""} ${
               currentMenuItem === index && currentMenuItemlevel === data.level
-                ? "active"
+                ? "nav-active"
                 : ""
             }`}
             key={index}
