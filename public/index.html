@@ -34,7 +34,7 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>React App of Quốc Anh</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -55,17 +55,35 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      // $(document).ready(function () {
-      //   $(".nav-item.nav-has-submenu").click(function (e) {
-      //     e.stopPropagation();
-      //     if (!$(this).hasClass("active")) {
-      //       $(this).addClass("active");
-      //     } else {
-      //       $(this).removeClass("active");
-      //     }
-      //   });
+      $(document).ready(function () {
+        // $(".has-submenu > .nav-item.nav-has-submenu").click(function (e) {
+        //   e.stopPropagation();
+        //   if (!$(this).hasClass("nav-active")) {
+        //     $(this).addClass("nav-active");
+        //   } else {
+        //     $(this).removeClass("nav-active");
+        //   }
+        // });
+        // console.log($("li.nav-item.nav-has-submenu  a.nav-target"));
+        // const target = $("li.nav-item.nav-has-submenu  a.nav-target");
+        // setInterval(function () {
+        //   console.log(target);
+        // }, 100);
 
-      // });
+        $(document).on("click", function (event) {
+          var n = $(event.target).closest(".nav-item");
+          n.toggleClass("nav-active");
+        });
+
+        // $(".nav-item.nav-has-submenu").click(function (e) {
+        //   e.stopPropagation();
+        //   if (!$(this).hasClass("nav-active")) {
+        //     $(this).addClass("nav-active");
+        //   } else {
+        //     $(this).removeClass("nav-active");
+        //   }
+        // });
+      });
     </script>
   </body>
 </html>

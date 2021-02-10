@@ -66,31 +66,36 @@ function RecursionMenu(props) {
               data.submenu ? "nav-has-submenu" : "nav-no-submenu"
             } ${
               data.submenu ? `nav-submenu-align-${data.submenu.alignment}` : ""
-            } ${data.submenu ? `nav-submenu-${data.submenu.type}` : ""} ${
-              currentMenuItem === index && currentMenuItemlevel === data.level
-                ? "nav-active"
-                : ""
-            }`}
+            } ${data.submenu ? `nav-submenu-${data.submenu.type}` : ""} `}
             key={index}
           >
             <a
-              onClick={() => handleActive(data.level, index)}
+              // onClick={() => handleActive(data.level, index)}
               className="nav-target"
             >
               {!ToggleMode ? (
                 <div className="editor">
                   <i
-                    onClick={() => handleDuplicate(data, index)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDuplicate(data, index);
+                    }}
                     title="Duplicate Item"
                     className="fas fa-copy"
                   ></i>
                   <i
-                    onClick={() => handleShowPopEdit2(data, index)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleShowPopEdit2(data, index);
+                    }}
                     title="Edit Item"
                     className="fas fa-pen"
                   ></i>
                   <i
-                    onClick={() => showModalDelete(index)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      showModalDelete(index);
+                    }}
                     title="Delete Item"
                     className="far fa-trash-alt"
                   ></i>
@@ -116,7 +121,7 @@ function RecursionMenu(props) {
                   dataSub={data.submenu}
                 />
                 {!ToggleMode ? (
-                  <li className="createItem">
+                  <li className="nav-item nav-no-submenu createItem">
                     <a
                       onClick={() =>
                         handleShowPath(

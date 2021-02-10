@@ -50,6 +50,7 @@ function RenderSubmenuItem({ dataSub, path, stt }) {
     currentMenuItem,
     currentMenuItemlevel,
     ToggleMode,
+    HandleActiveSubmenuItem,
   } = useContext(MenuCx);
 
   const menu = [...MenuData];
@@ -62,8 +63,15 @@ function RenderSubmenuItem({ dataSub, path, stt }) {
             // console.log(data);
             return (
               <li
+                // onClick={
+                //   data.submenu.items.length
+                //     ? () => HandleActiveSubmenuItem(data)
+                //     : null
+                // }
                 className={`nav-item nav-item-level-${stt + 1} ${
-                  data.submenu ? "nav-has-submenu" : "nav-no-submenu"
+                  data.submenu && data.submenu.items.length
+                    ? "nav-has-submenu"
+                    : "nav-no-submenu"
                 } ${
                   dataSub.alignment
                     ? `nav-submenu-align-${dataSub.alignment}`
@@ -75,31 +83,34 @@ function RenderSubmenuItem({ dataSub, path, stt }) {
                   {!ToggleMode ? (
                     <div className="editor">
                       <i
-                        onClick={() =>
-                          handleDuplicateItemSubmenuDropdown(path, index)
-                        }
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDuplicateItemSubmenuDropdown(path, index);
+                        }}
                         title="Duplicate Item"
                         className="fas fa-copy"
                       ></i>
                       <i
-                        onClick={() =>
+                        onClick={(e) => {
+                          e.stopPropagation();
                           handleShowPopEditSubmeuItem(
                             path,
                             index,
                             "edit_drop_submenu"
-                          )
-                        }
+                          );
+                        }}
                         title="Edit Item"
                         className="fas fa-pen"
                       ></i>
                       <i
-                        onClick={() =>
+                        onClick={(e) => {
+                          e.stopPropagation();
                           ShowModalDeleteSubmenu(
                             path,
                             index,
                             "del_drop_submenu"
-                          )
-                        }
+                          );
+                        }}
                         title="Delete Item"
                         className="far fa-trash-alt"
                       ></i>
@@ -135,9 +146,10 @@ function RenderSubmenuItem({ dataSub, path, stt }) {
                       dataSub={data.submenu}
                     />
                     {!ToggleMode ? (
-                      <li className="createItem">
+                      <li className="nav-item nav-no-submenu createItem">
                         <a
-                          onClick={() =>
+                          onClick={(e) => {
+                            e.stopPropagation();
                             handleShowPath(
                               path + `.items[${index}].submenu.items`,
                               `dropdown_${orientation}`,
@@ -145,8 +157,8 @@ function RenderSubmenuItem({ dataSub, path, stt }) {
                               orientation == "vertical"
                                 ? arrVertical
                                 : arrHorizontal
-                            )
-                          }
+                            );
+                          }}
                           className="nav-target"
                         >
                           <span>
@@ -162,15 +174,16 @@ function RenderSubmenuItem({ dataSub, path, stt }) {
                     {!ToggleMode ? (
                       <li className="createItem">
                         <a
-                          onClick={() =>
+                          onClick={(e) => {
+                            e.stopPropagation();
                             handleCreateDropdown(
                               path + `.items[${index}].submenu.items`,
                               `dropdown_${orientation}`,
                               orientation == "vertical"
                                 ? arrVertical
                                 : arrHorizontal
-                            )
-                          }
+                            );
+                          }}
                           className="nav-target"
                         >
                           <span>

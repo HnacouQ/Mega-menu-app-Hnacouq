@@ -75,6 +75,7 @@ class MenuContext extends Component {
       currentMenuItem: -1,
       currentMenuItemlevel: -1,
       ToggleMode: false,
+      NavActive: [],
     };
 
     this.handleActiveMenu = this.handleActiveMenu.bind(this);
@@ -134,6 +135,11 @@ class MenuContext extends Component {
     );
     this.handleActive = this.handleActive.bind(this);
     this.handleChangeToggleMode = this.handleChangeToggleMode.bind(this);
+    this.HandleActiveSubmenuItem = this.HandleActiveSubmenuItem.bind(this);
+  }
+
+  HandleActiveSubmenuItem(data) {
+    console.log(data);
   }
 
   handleChangeToggleMode() {
@@ -1040,7 +1046,7 @@ class MenuContext extends Component {
   componentDidUpdate() {}
 
   render() {
-    console.log(this.state.currentMenuItem);
+    console.log(this.state.MenuData);
     return (
       <MenuCx.Provider
         value={{
@@ -1091,6 +1097,7 @@ class MenuContext extends Component {
           handleShowPopEditMegaItemSinger: this.handleShowPopEditMegaItemSinger,
           handleActive: this.handleActive,
           handleChangeToggleMode: this.handleChangeToggleMode,
+          HandleActiveSubmenuItem: this.HandleActiveSubmenuItem,
           handleChangToggleMode: this.handleChangToggleMode,
           currentSetting: this.state.currentSetting,
           menuActive: this.state.menuActive,

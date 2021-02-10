@@ -939,7 +939,7 @@ li.nav-item.nav-item-0 {
   top: 0;
   right: 0;
   display: none;
-  z-index: 999;
+  z-index: 9999;
 }
 
 i.fas.fa-copy {
@@ -1256,6 +1256,7 @@ li.Template__menu--li {
   padding: 0;
   background-color: #f59d9d;
   border: 1px solid #fff;
+  display: flex;
 }
 
 .nav-item .has-submenu li.nav-item {
@@ -1683,6 +1684,15 @@ button.btn-default.addItem__btn > span {
 }
 
 .nav-transition-shiftup .nav-active > .has-submenu {
+  opacity: 1;
+  visibility: visible !important;
+  margin-top: 0 !important;
+  display: flex !important;
+  transition: all 0.5s ease-in-out;
+  z-index: 99;
+}
+
+.nav-has-submenu .nav-no-submenu:hover .has-submenu {
   opacity: 1;
   visibility: visible !important;
   margin-top: 0 !important;
